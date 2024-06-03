@@ -174,3 +174,22 @@ body {
     transform: scale(1.1);
   }
 }
+
+@media only screen and (min-device-width: 480px) and (max-device-height: 640px) and (orientation: landscape) {
+  .modalbox {
+    width: 250px;
+    height: 250px;
+  }
+
+  .demo-loaded {
+    & header {
+      height: 70px;
+    }
+    & aside {
+
+      & .switchViewButton {
+        margin-top: 150px;
+      }
+    }
+  }
+}
