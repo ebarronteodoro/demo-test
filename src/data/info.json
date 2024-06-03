@@ -1,0 +1,10 @@
+{
+    "es": {
+        "greeting": "Departamento",
+        "switchViewText": "Vista Lateral"
+    },
+    "en": {
+        "greeting": "Apartment",
+        "switchViewText": "Side View"
+    }
+}
