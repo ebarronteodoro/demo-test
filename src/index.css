@@ -7,14 +7,15 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color-scheme: light dark;
 }
 
 .initial-screen {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   overflow: hidden;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -73,11 +74,11 @@ body {
   gap: 5%;
 }
 
-.modalbox>div {
+.modalbox > div {
   display: flex;
   gap: 12px;
 
-  &>button {
+  & > button {
     background: rgba(31, 31, 31, 0.9);
     color: white;
     border: none;
@@ -96,59 +97,85 @@ body {
 /* ESTILOS 3D RENDER EDIFICIO */
 .demo-loaded {
   font-size: 2rem;
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   background: white;
-  
+
   & header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
     z-index: 9999;
     background-color: rgba(0, 0, 0, 0.62);
-  }
-
-  & aside {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 90px;
-    z-index: 9999;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.62);
+    padding: 1%;
+    gap: 15px;
 
-    & .switchViewButton {
-      margin-top: 400px;
+    & .phoneIcon {
+      padding: 4px;
+      background: rgba(0, 0, 0, 0.62);
+      border-radius: 4px;
+    }
+
+    & .info-container {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: all .1s ease-out;
 
-      &:active {
-        transform: scale(1.2);
+      & > span {
+        font-size: 20px;
       }
 
-      & svg {
-        color: white;
-        transition: all .3s ease;
+      & div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 5px;
 
-        &.active{
-          
-          color: rgb(95, 255, 95);
+        & span {
+          font-size: 14px;
         }
       }
+    }
+  }
+}
 
-      
+& aside {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 90px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.62);
+
+  & .switchViewButton {
+    margin-top: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.1s ease-out;
+
+    &:active {
+      transform: scale(1.2);
+    }
+
+    & svg {
+      color: white;
+      transition: all 0.3s ease;
+
+      &.active {
+        color: rgb(95, 255, 95);
+      }
     }
   }
 }
@@ -168,7 +195,7 @@ body {
   border: none;
   border-radius: 4px;
   padding: 2px;
-  transition: all .1s ease-out;
+  transition: all 0.1s ease-out;
 
   &:active {
     transform: scale(1.1);
@@ -185,8 +212,8 @@ body {
     & header {
       height: 70px;
     }
-    & aside {
 
+    & aside {
       & .switchViewButton {
         margin-top: 150px;
       }
