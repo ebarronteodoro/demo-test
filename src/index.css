@@ -111,6 +111,7 @@ body {
     display: flex;
     align-items: center;
     padding: 1%;
+    height: 15%;
     gap: 15px;
 
     & .phoneIcon {
@@ -118,7 +119,7 @@ body {
       background: rgba(0, 0, 0, 0.62);
       border-radius: 4px;
     }
-
+    /*  */
     & .info-container {
       display: flex;
       flex-direction: column;
