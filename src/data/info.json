@@ -1,322 +1,1008 @@
 {
-    "es": {
-        "switchViewText": "Vista Lateral",
-        "building": {
-            "floor": {
-                "1": {
-                    "id": "1",
-                    "name": "Piso: 1",
-                    "apartments": {
-                        "101": {
-                            "id": "101",
-                            "name": "Departamento 101",
-                            "type": "Estudio"
-                        },
-                        "102": {
-                            "id": "102",
-                            "name": "Departamento 102",
-                            "type": "1 Habitación"
-                        },
-                        "103": {
-                            "id": "103",
-                            "name": "Departamento 103",
-                            "type": "2 Habitaciones"
-                        },
-                        "104": {
-                            "id": "104",
-                            "name": "Departamento 104",
-                            "type": "Estudio"
-                        },
-                        "105": {
-                            "id": "105",
-                            "name": "Departamento 105",
-                            "type": "1 Habitación"
-                        },
-                        "106": {
-                            "id": "106",
-                            "name": "Departamento 106",
-                            "type": "2 Habitaciones"
-                        },
-                        "107": {
-                            "id": "107",
-                            "name": "Departamento 107",
-                            "type": "Estudio"
-                        },
-                        "108": {
-                            "id": "108",
-                            "name": "Departamento 108",
-                            "type": "1 Habitación"
-                        },
-                        "109": {
-                            "id": "109",
-                            "name": "Departamento 109",
-                            "type": "2 Habitaciones"
-                        }
-                    }
-                },
-                "2": {
-                    "id": "2",
-                    "name": "Piso: 2",
-                    "apartments": {
-                        "201": {
-                            "id": "201",
-                            "name": "Departamento 201",
-                            "type": "2 Habitaciones"
-                        },
-                        "202": {
-                            "id": "202",
-                            "name": "Departamento 202",
-                            "type": "1 Habitación"
-                        },
-                        "203": {
-                            "id": "203",
-                            "name": "Departamento 203",
-                            "type": "Estudio"
-                        },
-                        "204": {
-                            "id": "204",
-                            "name": "Departamento 204",
-                            "type": "1 Habitación"
-                        },
-                        "205": {
-                            "id": "205",
-                            "name": "Departamento 205",
-                            "type": "2 Habitaciones"
-                        },
-                        "206": {
-                            "id": "206",
-                            "name": "Departamento 206",
-                            "type": "Estudio"
-                        },
-                        "207": {
-                            "id": "207",
-                            "name": "Departamento 207",
-                            "type": "1 Habitación"
-                        },
-                        "208": {
-                            "id": "208",
-                            "name": "Departamento 208",
-                            "type": "2 Habitaciones"
-                        },
-                        "209": {
-                            "id": "209",
-                            "name": "Departamento 209",
-                            "type": "Estudio"
-                        }
-                    }
-                },
-                "3": {
-                    "id": "3",
-                    "name": "Piso: 3",
-                    "apartments": {
-                        "301": {
-                            "id": "301",
-                            "name": "Departamento 301",
-                            "type": "Penthouse"
-                        },
-                        "302": {
-                            "id": "302",
-                            "name": "Departamento 302",
-                            "type": "2 Habitaciones"
-                        },
-                        "303": {
-                            "id": "303",
-                            "name": "Departamento 303",
-                            "type": "1 Habitación"
-                        },
-                        "304": {
-                            "id": "304",
-                            "name": "Departamento 304",
-                            "type": "Estudio"
-                        },
-                        "305": {
-                            "id": "305",
-                            "name": "Departamento 305",
-                            "type": "2 Habitaciones"
-                        },
-                        "306": {
-                            "id": "306",
-                            "name": "Departamento 306",
-                            "type": "1 Habitación"
-                        },
-                        "307": {
-                            "id": "307",
-                            "name": "Departamento 307",
-                            "type": "Estudio"
-                        },
-                        "308": {
-                            "id": "308",
-                            "name": "Departamento 308",
-                            "type": "1 Habitación"
-                        },
-                        "309": {
-                            "id": "309",
-                            "name": "Departamento 309",
-                            "type": "2 Habitaciones"
-                        }
-                    }
-                }
+  "es": {
+    "switchViewText": "Vista Lateral",
+    "building": {
+      "floor": {
+        "1": {
+          "id": "1",
+          "name": "Piso: 1",
+          "apartments": {
+            "101": {
+              "id": "101",
+              "name": "Departamento 101",
+              "type": "Estudio"
+            },
+            "102": {
+              "id": "102",
+              "name": "Departamento 102",
+              "type": "1 Habitación"
+            },
+            "103": {
+              "id": "103",
+              "name": "Departamento 103",
+              "type": "2 Habitaciones"
+            },
+            "104": {
+              "id": "104",
+              "name": "Departamento 104",
+              "type": "1 Habitación"
+            },
+            "105": {
+              "id": "105",
+              "name": "Departamento 105",
+              "type": "Estudio"
             }
-        }
-    },
-    "en": {
-        "switchViewText": "Side View",
-        "building": {
-            "floor": {
-                "1": {
-                    "id": "1",
-                    "name": "Floor: 1",
-                    "apartments": {
-                        "101": {
-                            "id": "101",
-                            "name": "Apartment 101",
-                            "type": "Studio"
-                        },
-                        "102": {
-                            "id": "102",
-                            "name": "Apartment 102",
-                            "type": "1 Bedroom"
-                        },
-                        "103": {
-                            "id": "103",
-                            "name": "Apartment 103",
-                            "type": "2 Bedrooms"
-                        },
-                        "104": {
-                            "id": "104",
-                            "name": "Apartment 104",
-                            "type": "Studio"
-                        },
-                        "105": {
-                            "id": "105",
-                            "name": "Apartment 105",
-                            "type": "1 Bedroom"
-                        },
-                        "106": {
-                            "id": "106",
-                            "name": "Apartment 106",
-                            "type": "2 Bedrooms"
-                        },
-                        "107": {
-                            "id": "107",
-                            "name": "Apartment 107",
-                            "type": "Studio"
-                        },
-                        "108": {
-                            "id": "108",
-                            "name": "Apartment 108",
-                            "type": "1 Bedroom"
-                        },
-                        "109": {
-                            "id": "109",
-                            "name": "Apartment 109",
-                            "type": "2 Bedrooms"
-                        }
-                    }
-                },
-                "2": {
-                    "id": "2",
-                    "name": "Floor: 2",
-                    "apartments": {
-                        "201": {
-                            "id": "201",
-                            "name": "Apartment 201",
-                            "type": "2 Bedrooms"
-                        },
-                        "202": {
-                            "id": "202",
-                            "name": "Apartment 202",
-                            "type": "1 Bedroom"
-                        },
-                        "203": {
-                            "id": "203",
-                            "name": "Apartment 203",
-                            "type": "Studio"
-                        },
-                        "204": {
-                            "id": "204",
-                            "name": "Apartment 204",
-                            "type": "1 Bedroom"
-                        },
-                        "205": {
-                            "id": "205",
-                            "name": "Apartment 205",
-                            "type": "2 Bedrooms"
-                        },
-                        "206": {
-                            "id": "206",
-                            "name": "Apartment 206",
-                            "type": "Studio"
-                        },
-                        "207": {
-                            "id": "207",
-                            "name": "Apartment 207",
-                            "type": "1 Bedroom"
-                        },
-                        "208": {
-                            "id": "208",
-                            "name": "Apartment 208",
-                            "type": "2 Bedrooms"
-                        },
-                        "209": {
-                            "id": "209",
-                            "name": "Apartment 209",
-                            "type": "Studio"
-                        }
-                    }
-                },
-                "3": {
-                    "id": "3",
-                    "name": "Floor: 3",
-                    "apartments": {
-                        "301": {
-                            "id": "301",
-                            "name": "Apartment 301",
-                            "type": "Penthouse"
-                        },
-                        "302": {
-                            "id": "302",
-                            "name": "Apartment 302",
-                            "type": "2 Bedrooms"
-                        },
-                        "303": {
-                            "id": "303",
-                            "name": "Apartment 303",
-                            "type": "1 Bedroom"
-                        },
-                        "304": {
-                            "id": "304",
-                            "name": "Apartment 304",
-                            "type": "Studio"
-                        },
-                        "305": {
-                            "id": "305",
-                            "name": "Apartment 305",
-                            "type": "2 Bedrooms"
-                        },
-                        "306": {
-                            "id": "306",
-                            "name": "Apartment 306",
-                            "type": "1 Bedroom"
-                        },
-                        "307": {
-                            "id": "307",
-                            "name": "Apartment 307",
-                            "type": "Studio"
-                        },
-                        "308": {
-                            "id": "308",
-                            "name": "Apartment 308",
-                            "type": "1 Bedroom"
-                        },
-                        "309": {
-                            "id": "309",
-                            "name": "Apartment 309",
-                            "type": "2 Bedrooms"
-                        }
-                    }
-                }
+          }
+        },
+        "2": {
+          "id": "2",
+          "name": "Piso: 2",
+          "apartments": {
+            "201": {
+              "id": "201",
+              "name": "Departamento 201",
+              "type": "2 Habitaciones"
+            },
+            "202": {
+              "id": "202",
+              "name": "Departamento 202",
+              "type": "1 Habitación"
+            },
+            "203": {
+              "id": "203",
+              "name": "Departamento 203",
+              "type": "Estudio"
+            },
+            "204": {
+              "id": "204",
+              "name": "Departamento 204",
+              "type": "1 Habitación"
+            },
+            "205": {
+              "id": "205",
+              "name": "Departamento 205",
+              "type": "Estudio"
             }
+          }
+        },
+        "3": {
+          "id": "3",
+          "name": "Piso: 3",
+          "apartments": {
+            "301": {
+              "id": "301",
+              "name": "Departamento 301",
+              "type": "Penthouse"
+            },
+            "302": {
+              "id": "302",
+              "name": "Departamento 302",
+              "type": "2 Habitaciones"
+            },
+            "303": {
+              "id": "303",
+              "name": "Departamento 303",
+              "type": "1 Habitación"
+            },
+            "304": {
+              "id": "304",
+              "name": "Departamento 304",
+              "type": "Estudio"
+            },
+            "305": {
+              "id": "305",
+              "name": "Departamento 305",
+              "type": "2 Habitaciones"
+            }
+          }
+        },
+        "4": {
+          "id": "4",
+          "name": "Piso: 4",
+          "apartments": {
+            "401": {
+              "id": "401",
+              "name": "Departamento 401",
+              "type": "2 Habitaciones"
+            },
+            "402": {
+              "id": "402",
+              "name": "Departamento 402",
+              "type": "1 Habitación"
+            },
+            "403": {
+              "id": "403",
+              "name": "Departamento 403",
+              "type": "Estudio"
+            },
+            "404": {
+              "id": "404",
+              "name": "Departamento 404",
+              "type": "1 Habitación"
+            },
+            "405": {
+              "id": "405",
+              "name": "Departamento 405",
+              "type": "Estudio"
+            }
+          }
+        },
+        "5": {
+          "id": "5",
+          "name": "Piso: 5",
+          "apartments": {
+            "501": {
+              "id": "501",
+              "name": "Departamento 501",
+              "type": "Estudio"
+            },
+            "502": {
+              "id": "502",
+              "name": "Departamento 502",
+              "type": "1 Habitación"
+            },
+            "503": {
+              "id": "503",
+              "name": "Departamento 503",
+              "type": "2 Habitaciones"
+            },
+            "504": {
+              "id": "504",
+              "name": "Departamento 504",
+              "type": "1 Habitación"
+            },
+            "505": {
+              "id": "505",
+              "name": "Departamento 505",
+              "type": "Estudio"
+            }
+          }
+        },
+        "6": {
+          "id": "6",
+          "name": "Piso: 6",
+          "apartments": {
+            "601": {
+              "id": "601",
+              "name": "Departamento 601",
+              "type": "2 Habitaciones"
+            },
+            "602": {
+              "id": "602",
+              "name": "Departamento 602",
+              "type": "1 Habitación"
+            },
+            "603": {
+              "id": "603",
+              "name": "Departamento 603",
+              "type": "Estudio"
+            },
+            "604": {
+              "id": "604",
+              "name": "Departamento 604",
+              "type": "1 Habitación"
+            },
+            "605": {
+              "id": "605",
+              "name": "Departamento 605",
+              "type": "Estudio"
+            }
+          }
+        },
+        "7": {
+          "id": "7",
+          "name": "Piso: 7",
+          "apartments": {
+            "701": {
+              "id": "701",
+              "name": "Departamento 701",
+              "type": "2 Habitaciones"
+            },
+            "702": {
+              "id": "702",
+              "name": "Departamento 702",
+              "type": "1 Habitación"
+            },
+            "703": {
+              "id": "703",
+              "name": "Departamento 703",
+              "type": "Estudio"
+            },
+            "704": {
+              "id": "704",
+              "name": "Departamento 704",
+              "type": "1 Habitación"
+            },
+            "705": {
+              "id": "705",
+              "name": "Departamento 705",
+              "type": "Estudio"
+            }
+          }
+        },
+        "8": {
+          "id": "8",
+          "name": "Piso: 8",
+          "apartments": {
+            "801": {
+              "id": "801",
+              "name": "Departamento 801",
+              "type": "2 Habitaciones"
+            },
+            "802": {
+              "id": "802",
+              "name": "Departamento 802",
+              "type": "1 Habitación"
+            },
+            "803": {
+              "id": "803",
+              "name": "Departamento 803",
+              "type": "Estudio"
+            },
+            "804": {
+              "id": "804",
+              "name": "Departamento 804",
+              "type": "1 Habitación"
+            },
+            "805": {
+              "id": "805",
+              "name": "Departamento 805",
+              "type": "Estudio"
+            }
+          }
+        },
+        "9": {
+          "id": "9",
+          "name": "Piso: 9",
+          "apartments": {
+            "901": {
+              "id": "901",
+              "name": "Departamento 901",
+              "type": "2 Habitaciones"
+            },
+            "902": {
+              "id": "902",
+              "name": "Departamento 902",
+              "type": "1 Habitación"
+            },
+            "903": {
+              "id": "903",
+              "name": "Departamento 903",
+              "type": "Estudio"
+            },
+            "904": {
+              "id": "904",
+              "name": "Departamento 904",
+              "type": "1 Habitación"
+            },
+            "905": {
+              "id": "905",
+              "name": "Departamento 905",
+              "type": "Estudio"
+            }
+          }
+        },
+        "10": {
+          "id": "10",
+          "name": "Piso: 10",
+          "apartments": {
+            "1001": {
+              "id": "1001",
+              "name": "Departamento 1001",
+              "type": "2 Habitaciones"
+            },
+            "1002": {
+              "id": "1002",
+              "name": "Departamento 1002",
+              "type": "1 Habitación"
+            },
+            "1003": {
+              "id": "1003",
+              "name": "Departamento 1003",
+              "type": "Estudio"
+            },
+            "1004": {
+              "id": "1004",
+              "name": "Departamento 1004",
+              "type": "1 Habitación"
+            },
+            "1005": {
+              "id": "1005",
+              "name": "Departamento 1005",
+              "type": "Estudio"
+            }
+          }
+        },
+        "11": {
+          "id": "11",
+          "name": "Piso: 11",
+          "apartments": {
+            "1101": {
+              "id": "1101",
+              "name": "Departamento 1101",
+              "type": "2 Habitaciones"
+            },
+            "1102": {
+              "id": "1102",
+              "name": "Departamento 1102",
+              "type": "1 Habitación"
+            },
+            "1103": {
+              "id": "1103",
+              "name": "Departamento 1103",
+              "type": "Estudio"
+            },
+            "1104": {
+              "id": "1104",
+              "name": "Departamento 1104",
+              "type": "1 Habitación"
+            },
+            "1105": {
+              "id": "1105",
+              "name": "Departamento 1105",
+              "type": "Estudio"
+            }
+          }
+        },
+        "12": {
+          "id": "12",
+          "name": "Piso: 12",
+          "apartments": {
+            "1201": {
+              "id": "1201",
+              "name": "Departamento 1201",
+              "type": "2 Habitaciones"
+            },
+            "1202": {
+              "id": "1202",
+              "name": "Departamento 1202",
+              "type": "1 Habitación"
+            },
+            "1203": {
+              "id": "1203",
+              "name": "Departamento 1203",
+              "type": "Estudio"
+            },
+            "1204": {
+              "id": "1204",
+              "name": "Departamento 1204",
+              "type": "1 Habitación"
+            },
+            "1205": {
+              "id": "1205",
+              "name": "Departamento 1205",
+              "type": "Estudio"
+            }
+          }
+        },
+        "13": {
+          "id": "13",
+          "name": "Piso: 13",
+          "apartments": {
+            "1301": {
+              "id": "1301",
+              "name": "Departamento 1301",
+              "type": "2 Habitaciones"
+            },
+            "1302": {
+              "id": "1302",
+              "name": "Departamento 1302",
+              "type": "1 Habitación"
+            },
+            "1303": {
+              "id": "1303",
+              "name": "Departamento 1303",
+              "type": "Estudio"
+            },
+            "1304": {
+              "id": "1304",
+              "name": "Departamento 1304",
+              "type": "1 Habitación"
+            },
+            "1305": {
+              "id": "1305",
+              "name": "Departamento 1305",
+              "type": "Estudio"
+            }
+          }
+        },
+        "14": {
+          "id": "14",
+          "name": "Piso: 14",
+          "apartments": {
+            "1401": {
+              "id": "1401",
+              "name": "Departamento 1401",
+              "type": "2 Habitaciones"
+            },
+            "1402": {
+              "id": "1402",
+              "name": "Departamento 1402",
+              "type": "1 Habitación"
+            },
+            "1403": {
+              "id": "1403",
+              "name": "Departamento 1403",
+              "type": "Estudio"
+            },
+            "1404": {
+              "id": "1404",
+              "name": "Departamento 1404",
+              "type": "1 Habitación"
+            },
+            "1405": {
+              "id": "1405",
+              "name": "Departamento 1405",
+              "type": "Estudio"
+            }
+          }
+        },
+        "15": {
+          "id": "15",
+          "name": "Piso: 15",
+          "apartments": {
+            "1501": {
+              "id": "1501",
+              "name": "Departamento 1501",
+              "type": "2 Habitaciones"
+            },
+            "1502": {
+              "id": "1502",
+              "name": "Departamento 1502",
+              "type": "1 Habitación"
+            },
+            "1503": {
+              "id": "1503",
+              "name": "Departamento 1503",
+              "type": "Estudio"
+            },
+            "1504": {
+              "id": "1504",
+              "name": "Departamento 1504",
+              "type": "1 Habitación"
+            },
+            "1505": {
+              "id": "1505",
+              "name": "Departamento 1505",
+              "type": "Estudio"
+            }
+          }
+        },
+        "16": {
+          "id": "16",
+          "name": "Piso: 16",
+          "apartments": {
+            "1601": {
+              "id": "1601",
+              "name": "Departamento 1601",
+              "type": "2 Habitaciones"
+            },
+            "1602": {
+              "id": "1602",
+              "name": "Departamento 1602",
+              "type": "1 Habitación"
+            },
+            "1603": {
+              "id": "1603",
+              "name": "Departamento 1603",
+              "type": "Estudio"
+            },
+            "1604": {
+              "id": "1604",
+              "name": "Departamento 1604",
+              "type": "1 Habitación"
+            },
+            "1605": {
+              "id": "1605",
+              "name": "Departamento 1605",
+              "type": "Estudio"
+            }
+          }
         }
+      }
     }
+  },
+  "en": {
+    "switchViewText": "Side View",
+    "building": {
+      "floor": {
+        "1": {
+          "id": "1",
+          "name": "Floor: 1",
+          "apartments": {
+            "101": {
+              "id": "101",
+              "name": "Apartment 101",
+              "type": "Studio"
+            },
+            "102": {
+              "id": "102",
+              "name": "Apartment 102",
+              "type": "1 Bedroom"
+            },
+            "103": {
+              "id": "103",
+              "name": "Apartment 103",
+              "type": "2 Bedrooms"
+            },
+            "104": {
+              "id": "104",
+              "name": "Apartment 104",
+              "type": "1 Bedroom"
+            },
+            "105": {
+              "id": "105",
+              "name": "Apartment 105",
+              "type": "Studio"
+            }
+          }
+        },
+        "2": {
+          "id": "2",
+          "name": "Floor: 2",
+          "apartments": {
+            "201": {
+              "id": "201",
+              "name": "Apartment 201",
+              "type": "2 Bedrooms"
+            },
+            "202": {
+              "id": "202",
+              "name": "Apartment 202",
+              "type": "1 Bedroom"
+            },
+            "203": {
+              "id": "203",
+              "name": "Apartment 203",
+              "type": "Studio"
+            },
+            "204": {
+              "id": "204",
+              "name": "Apartment 204",
+              "type": "1 Bedroom"
+            },
+            "205": {
+              "id": "205",
+              "name": "Apartment 205",
+              "type": "Studio"
+            }
+          }
+        },
+        "3": {
+          "id": "3",
+          "name": "Floor: 3",
+          "apartments": {
+            "301": {
+              "id": "301",
+              "name": "Apartment 301",
+              "type": "Penthouse"
+            },
+            "302": {
+              "id": "302",
+              "name": "Apartment 302",
+              "type": "2 Bedrooms"
+            },
+            "303": {
+              "id": "303",
+              "name": "Apartment 303",
+              "type": "1 Bedroom"
+            },
+            "304": {
+              "id": "304",
+              "name": "Apartment 304",
+              "type": "Studio"
+            },
+            "305": {
+              "id": "305",
+              "name": "Apartment 305",
+              "type": "2 Bedrooms"
+            }
+          }
+        },
+        "4": {
+          "id": "4",
+          "name": "Floor: 4",
+          "apartments": {
+            "401": {
+              "id": "401",
+              "name": "Apartment 401",
+              "type": "2 Bedrooms"
+            },
+            "402": {
+              "id": "402",
+              "name": "Apartment 402",
+              "type": "1 Bedroom"
+            },
+            "403": {
+              "id": "403",
+              "name": "Apartment 403",
+              "type": "Studio"
+            },
+            "404": {
+              "id": "404",
+              "name": "Apartment 404",
+              "type": "1 Bedroom"
+            },
+            "405": {
+              "id": "405",
+              "name": "Apartment 405",
+              "type": "Studio"
+            }
+          }
+        },
+        "5": {
+          "id": "5",
+          "name": "Floor: 5",
+          "apartments": {
+            "501": {
+              "id": "501",
+              "name": "Apartment 501",
+              "type": "Studio"
+            },
+            "502": {
+              "id": "502",
+              "name": "Apartment 502",
+              "type": "1 Bedroom"
+            },
+            "503": {
+              "id": "503",
+              "name": "Apartment 503",
+              "type": "2 Bedrooms"
+            },
+            "504": {
+              "id": "504",
+              "name": "Apartment 504",
+              "type": "1 Bedroom"
+            },
+            "505": {
+              "id": "505",
+              "name": "Apartment 505",
+              "type": "Studio"
+            }
+          }
+        },
+        "6": {
+          "id": "6",
+          "name": "Floor: 6",
+          "apartments": {
+            "601": {
+              "id": "601",
+              "name": "Apartment 601",
+              "type": "2 Bedrooms"
+            },
+            "602": {
+              "id": "602",
+              "name": "Apartment 602",
+              "type": "1 Bedroom"
+            },
+            "603": {
+              "id": "603",
+              "name": "Apartment 603",
+              "type": "Studio"
+            },
+            "604": {
+              "id": "604",
+              "name": "Apartment 604",
+              "type": "1 Bedroom"
+            },
+            "605": {
+              "id": "605",
+              "name": "Apartment 605",
+              "type": "Studio"
+            }
+          }
+        },
+        "7": {
+          "id": "7",
+          "name": "Floor: 7",
+          "apartments": {
+            "701": {
+              "id": "701",
+              "name": "Apartment 701",
+              "type": "2 Bedrooms"
+            },
+            "702": {
+              "id": "702",
+              "name": "Apartment 702",
+              "type": "1 Bedroom"
+            },
+            "703": {
+              "id": "703",
+              "name": "Apartment 703",
+              "type": "Studio"
+            },
+            "704": {
+              "id": "704",
+              "name": "Apartment 704",
+              "type": "1 Bedroom"
+            },
+            "705": {
+              "id": "705",
+              "name": "Apartment 705",
+              "type": "Studio"
+            }
+          }
+        },
+        "8": {
+          "id": "8",
+          "name": "Floor: 8",
+          "apartments": {
+            "801": {
+              "id": "801",
+              "name": "Apartment 801",
+              "type": "2 Bedrooms"
+            },
+            "802": {
+              "id": "802",
+              "name": "Apartment 802",
+              "type": "1 Bedroom"
+            },
+            "803": {
+              "id": "803",
+              "name": "Apartment 803",
+              "type": "Studio"
+            },
+            "804": {
+              "id": "804",
+              "name": "Apartment 804",
+              "type": "1 Bedroom"
+            },
+            "805": {
+              "id": "805",
+              "name": "Apartment 805",
+              "type": "Studio"
+            }
+          }
+        },
+        "9": {
+          "id": "9",
+          "name": "Floor: 9",
+          "apartments": {
+            "901": {
+              "id": "901",
+              "name": "Apartment 901",
+              "type": "2 Bedrooms"
+            },
+            "902": {
+              "id": "902",
+              "name": "Apartment 902",
+              "type": "1 Bedroom"
+            },
+            "903": {
+              "id": "903",
+              "name": "Apartment 903",
+              "type": "Studio"
+            },
+            "904": {
+              "id": "904",
+              "name": "Apartment 904",
+              "type": "1 Bedroom"
+            },
+            "905": {
+              "id": "905",
+              "name": "Apartment 905",
+              "type": "Studio"
+            }
+          }
+        },
+        "10": {
+          "id": "10",
+          "name": "Floor: 10",
+          "apartments": {
+            "1001": {
+              "id": "1001",
+              "name": "Apartment 1001",
+              "type": "2 Bedrooms"
+            },
+            "1002": {
+              "id": "1002",
+              "name": "Apartment 1002",
+              "type": "1 Bedroom"
+            },
+            "1003": {
+              "id": "1003",
+              "name": "Apartment 1003",
+              "type": "Studio"
+            },
+            "1004": {
+              "id": "1004",
+              "name": "Apartment 1004",
+              "type": "1 Bedroom"
+            },
+            "1005": {
+              "id": "1005",
+              "name": "Apartment 1005",
+              "type": "Studio"
+            }
+          }
+        },
+        "11": {
+          "id": "11",
+          "name": "Floor: 11",
+          "apartments": {
+            "1101": {
+              "id": "1101",
+              "name": "Apartment 1101",
+              "type": "2 Bedrooms"
+            },
+            "1102": {
+              "id": "1102",
+              "name": "Apartment 1102",
+              "type": "1 Bedroom"
+            },
+            "1103": {
+              "id": "1103",
+              "name": "Apartment 1103",
+              "type": "Studio"
+            },
+            "1104": {
+              "id": "1104",
+              "name": "Apartment 1104",
+              "type": "1 Bedroom"
+            },
+            "1105": {
+              "id": "1105",
+              "name": "Apartment 1105",
+              "type": "Studio"
+            }
+          }
+        },
+        "12": {
+          "id": "12",
+          "name": "Floor: 12",
+          "apartments": {
+            "1201": {
+              "id": "1201",
+              "name": "Apartment 1201",
+              "type": "2 Bedrooms"
+            },
+            "1202": {
+              "id": "1202",
+              "name": "Apartment 1202",
+              "type": "1 Bedroom"
+            },
+            "1203": {
+              "id": "1203",
+              "name": "Apartment 1203",
+              "type": "Studio"
+            },
+            "1204": {
+              "id": "1204",
+              "name": "Apartment 1204",
+              "type": "1 Bedroom"
+            },
+            "1205": {
+              "id": "1205",
+              "name": "Apartment 1205",
+              "type": "Studio"
+            }
+          }
+        },
+        "13": {
+          "id": "13",
+          "name": "Floor: 13",
+          "apartments": {
+            "1301": {
+              "id": "1301",
+              "name": "Apartment 1301",
+              "type": "2 Bedrooms"
+            },
+            "1302": {
+              "id": "1302",
+              "name": "Apartment 1302",
+              "type": "1 Bedroom"
+            },
+            "1303": {
+              "id": "1303",
+              "name": "Apartment 1303",
+              "type": "Studio"
+            },
+            "1304": {
+              "id": "1304",
+              "name": "Apartment 1304",
+              "type": "1 Bedroom"
+            },
+            "1305": {
+              "id": "1305",
+              "name": "Apartment 1305",
+              "type": "Studio"
+            }
+          }
+        },
+        "14": {
+          "id": "14",
+          "name": "Floor: 14",
+          "apartments": {
+            "1401": {
+              "id": "1401",
+              "name": "Apartment 1401",
+              "type": "2 Bedrooms"
+            },
+            "1402": {
+              "id": "1402",
+              "name": "Apartment 1402",
+              "type": "1 Bedroom"
+            },
+            "1403": {
+              "id": "1403",
+              "name": "Apartment 1403",
+              "type": "Studio"
+            },
+            "1404": {
+              "id": "1404",
+              "name": "Apartment 1404",
+              "type": "1 Bedroom"
+            },
+            "1405": {
+              "id": "1405",
+              "name": "Apartment 1405",
+              "type": "Studio"
+            }
+          }
+        },
+        "15": {
+          "id": "15",
+          "name": "Floor: 15",
+          "apartments": {
+            "1501": {
+              "id": "1501",
+              "name": "Apartment 1501",
+              "type": "2 Bedrooms"
+            },
+            "1502": {
+              "id": "1502",
+              "name": "Apartment 1502",
+              "type": "1 Bedroom"
+            },
+            "1503": {
+              "id": "1503",
+              "name": "Apartment 1503",
+              "type": "Studio"
+            },
+            "1504": {
+              "id": "1504",
+              "name": "Apartment 1504",
+              "type": "1 Bedroom"
+            },
+            "1505": {
+              "id": "1505",
+              "name": "Apartment 1505",
+              "type": "Studio"
+            }
+          }
+        },
+        "16": {
+          "id": "16",
+          "name": "Floor: 16",
+          "apartments": {
+            "1601": {
+              "id": "1601",
+              "name": "Apartment 1601",
+              "type": "2 Bedrooms"
+            },
+            "1602": {
+              "id": "1602",
+              "name": "Apartment 1602",
+              "type": "1 Bedroom"
+            },
+            "1603": {
+              "id": "1603",
+              "name": "Apartment 1603",
+              "type": "Studio"
+            },
+            "1604": {
+              "id": "1604",
+              "name": "Apartment 1604",
+              "type": "1 Bedroom"
+            },
+            "1605": {
+              "id": "1605",
+              "name": "Apartment 1605",
+              "type": "Studio"
+            }
+          }
+        }
+      }
+    }
+  }
 }
