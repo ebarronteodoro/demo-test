@@ -8,6 +8,7 @@ import info from '../data/info.json'
 import PhoneIcon from '../icons/PhoneIcon'
 import CameraControls from './CameraControls'
 import Floor from './Floor'
+import MobileRotatedIcon from '../icons/MobileRotatedIcon'
 
 extend({ Raycaster: THREE.Raycaster })
 
@@ -69,6 +70,24 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
   const [apartmentNumber, setApartmentNumber] = useState('')
   const [roomQuantity, setRoomQuantity] = useState('')
   const [selectedObject, setSelectedObject] = useState(null)
+  const [isPortrait, setIsPortrait] = useState(false)
+
+  const handleOrientationChange = () => {
+    if (window.orientation === 0 || window.orientation === 180) {
+      setIsPortrait(true)
+    } else {
+      setIsPortrait(false)
+    }
+  }
+
+  useEffect(() => {
+    handleOrientationChange()
+    window.addEventListener('orientationchange', handleOrientationChange)
+
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange)
+    }
+  }, [])
 
   const floorPositions = [
     [0, -4.5, -0.25],
@@ -177,6 +196,12 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
           {info[language].switchViewText}
         </button>
       </aside>
+      {isPortrait && (
+        <div className='rotate-message'>
+          <MobileRotatedIcon width='90' height='90' />
+          Por favor, gire el dispositivo
+        </div>
+      )}
     </section>
   )
 }
