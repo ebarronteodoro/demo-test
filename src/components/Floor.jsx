@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import info from '../data/info.json'
 import Apartment from './Apartment'
 
-const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber }) => {
+const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel }) => {
   const meshRef = useRef()
 
   const apartmentPositions = [
@@ -22,6 +22,7 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
       floorNumber !== 0 ? (setFloorNumber(floorName)) : (setFloorNumber('Planta Baja'))
       setApartmentNumber(apartmentInfo)
       setRoomQuantity(apartmentType)
+      setModel('apartment')
     }
   }
 
@@ -42,6 +43,7 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
               key={index}
               position={windowPos.map((value, i) => value + position[i])}
               onClick={() => handleWindowClick(index + 1)}
+              setModel={setModel}
             />
             )
       ))}

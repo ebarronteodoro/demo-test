@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree, extend } from '@react-three/fiber'
 import { Sky, useGLTF } from '@react-three/drei'
+import * as THREE from 'three'
 import RotateDotIcon from '../icons/RotateDotIcon'
 import CircleArrowLeftIcon from '../icons/CircleArrowLeftIcon'
 import info from '../data/info.json'
@@ -8,24 +9,66 @@ import PhoneIcon from '../icons/PhoneIcon'
 import CameraControls from './CameraControls'
 import Floor from './Floor'
 
-const Model = ({ path }) => {
+extend({ Raycaster: THREE.Raycaster })
+
+const Model = ({ path, onModelClick, position, scale }) => {
   const { scene } = useGLTF(path)
   const meshRef = useRef()
+  const { gl, camera } = useThree()
+  const raycaster = new THREE.Raycaster()
+
+  const handleClick = (event) => {
+    const mouse = new THREE.Vector2()
+    mouse.x = (event.clientX / gl.domElement.clientWidth) * 2 - 1
+    mouse.y = -(event.clientY / gl.domElement.clientHeight) * 2 + 1
+
+    raycaster.setFromCamera(mouse, camera)
+    const intersects = raycaster.intersectObject(scene, true)
+
+    if (intersects.length > 0) {
+      onModelClick(intersects[0].object)
+    }
+  }
+
+  useEffect(() => {
+    gl.domElement.addEventListener('click', handleClick)
+
+    return () => {
+      gl.domElement.removeEventListener('click', handleClick)
+    }
+  }, [gl, camera, scene])
 
   return (
-    <>
-      <primitive object={scene} ref={meshRef} />
-    </>
+    <primitive object={scene} ref={meshRef} position={position} scale={scale} />
   )
+}
+
+const HighlightedEdges = ({ object }) => {
+  const edgesGeometry = new THREE.EdgesGeometry(object.geometry)
+  const material = new THREE.LineBasicMaterial(object.name === 'Foliage001_16_-_Matte_Plastic_0' ? { color: 0x6AFF5B } : { color: 0xff0000 })
+  const lineSegments = new THREE.LineSegments(edgesGeometry, material)
+
+  useEffect(() => {
+    object.add(lineSegments)
+
+    return () => {
+      object.remove(lineSegments)
+    }
+  }, [object])
+
+  return null
 }
 
 const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
   const modelPath = '/models/modelo_bueno.glb'
+  const apartmentPath = '/models/apartments/modelo_depa6.glb'
   const [view, setView] = useState('side')
+  const [model, setModel] = useState('building')
   const [transitioning, setTransitioning] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
   const [apartmentNumber, setApartmentNumber] = useState('')
   const [roomQuantity, setRoomQuantity] = useState('')
+  const [selectedObject, setSelectedObject] = useState(null)
 
   const floorPositions = [
     [0, -4.5, -0.25],
@@ -49,6 +92,12 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
 
   const handleTransitionEnd = () => {
     setTransitioning(false)
+  }
+
+  const handleModelClick = (object) => {
+    object.name === 'Foliage001_16_-_Matte_Plastic_0' ? (console.log('Árbol clickeado:', object)) : (console.log('Objeto clickeado:', object))
+
+    setSelectedObject(object)
   }
 
   useEffect(() => {
@@ -77,29 +126,36 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
           <Sky sunPosition={[0, 5, 50]} />
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
-          <Model
-            path={modelPath}
-          />
-          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
-            <planeGeometry attach='geometry' args={[500, 500]} />
-            <meshStandardMaterial attach='material' color='green' />
-          </mesh>
-          {floorPositions.map((position, index) => (
-            <Floor
-              key={index}
-              position={position}
-              id={index}
-              language={language}
-              setApartmentNumber={setApartmentNumber}
-              setRoomQuantity={setRoomQuantity}
-              setFloorNumber={setFloorNumber}
-            />
-          ))}
+          {
+            model === 'building'
+              ? (<Model
+                  path={modelPath}
+                  onModelClick={handleModelClick}
+                 />,
+                <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
+                  <planeGeometry attach='geometry' args={[500, 500]} />
+                  <meshStandardMaterial attach='material' color='green' />
+                </mesh>,
+                  floorPositions.map((position, index) => (
+                    <Floor
+                      key={index}
+                      position={position}
+                      id={index}
+                      language={language}
+                      setApartmentNumber={setApartmentNumber}
+                      setRoomQuantity={setRoomQuantity}
+                      setFloorNumber={setFloorNumber}
+                      setModel={setModel}
+                    />
+                  )))
+              : (<Model path={apartmentPath} onModelClick={handleModelClick} position={[0, 0, 0]} scale={[1, 1, 1]} />)
+          }
           <CameraControls
             view={view}
             transitioning={transitioning}
             onTransitionEnd={handleTransitionEnd}
           />
+          {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
       </div>
       <button
