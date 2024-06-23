@@ -11,7 +11,7 @@ import Floor from './Floor'
 
 extend({ Raycaster: THREE.Raycaster })
 
-const Model = ({ path, onModelClick, position, scale }) => {
+const Model = ({ path, onModelClick }) => {
   const { scene } = useGLTF(path)
   const meshRef = useRef()
   const { gl, camera } = useThree()
@@ -39,7 +39,7 @@ const Model = ({ path, onModelClick, position, scale }) => {
   }, [gl, camera, scene])
 
   return (
-    <primitive object={scene} ref={meshRef} position={position} scale={scale} />
+    <primitive object={scene} ref={meshRef} />
   )
 }
 
@@ -122,39 +122,41 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
         </div>
       </header>
       <div role='presentation' className='presentation-container'>
-        <Canvas>
+        <Canvas style={{ cursor: 'pointer' }}>
           <Sky sunPosition={[0, 5, 50]} />
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
-          {
-            model === 'building'
-              ? (<Model
+          {model === 'building'
+            ? (
+              <>
+                <Model
                   path={modelPath}
                   onModelClick={handleModelClick}
-                 />,
+                  position={[0, 0, 0]}
+                  scale={[1, 1, 1]}
+                />
                 <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
                   <planeGeometry attach='geometry' args={[500, 500]} />
                   <meshStandardMaterial attach='material' color='green' />
-                </mesh>,
-                  floorPositions.map((position, index) => (
-                    <Floor
-                      key={index}
-                      position={position}
-                      id={index}
-                      language={language}
-                      setApartmentNumber={setApartmentNumber}
-                      setRoomQuantity={setRoomQuantity}
-                      setFloorNumber={setFloorNumber}
-                      setModel={setModel}
-                    />
-                  )))
-              : (<Model path={apartmentPath} onModelClick={handleModelClick} position={[0, 0, 0]} scale={[1, 1, 1]} />)
-          }
-          <CameraControls
-            view={view}
-            transitioning={transitioning}
-            onTransitionEnd={handleTransitionEnd}
-          />
+                </mesh>
+                {floorPositions.map((position, index) => (
+                  <Floor
+                    key={index}
+                    position={position}
+                    id={index}
+                    language={language}
+                    setApartmentNumber={setApartmentNumber}
+                    setRoomQuantity={setRoomQuantity}
+                    setFloorNumber={setFloorNumber}
+                    setModel={setModel}
+                  />
+                ))}
+              </>
+              )
+            : (
+              <Model path={apartmentPath} onModelClick={handleModelClick} />
+              )}
+          <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} />
           {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
       </div>
