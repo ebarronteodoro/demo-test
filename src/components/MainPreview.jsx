@@ -8,7 +8,6 @@ import info from '../data/info.json'
 import PhoneIcon from '../icons/PhoneIcon'
 import CameraControls from './CameraControls'
 import Floor from './Floor'
-import MobileRotatedIcon from '../icons/MobileRotatedIcon'
 
 extend({ Raycaster: THREE.Raycaster })
 
@@ -60,34 +59,15 @@ const HighlightedEdges = ({ object }) => {
   return null
 }
 
-const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
+const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
   const modelPath = '/models/modelo_bueno.glb'
   const apartmentPath = '/models/apartments/modelo_depa6.glb'
   const [view, setView] = useState('side')
-  const [model, setModel] = useState('building')
   const [transitioning, setTransitioning] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
   const [apartmentNumber, setApartmentNumber] = useState('')
   const [roomQuantity, setRoomQuantity] = useState('')
   const [selectedObject, setSelectedObject] = useState(null)
-  const [isPortrait, setIsPortrait] = useState(false)
-
-  const handleOrientationChange = () => {
-    if (window.orientation === 0 || window.orientation === 180) {
-      setIsPortrait(true)
-    } else {
-      setIsPortrait(false)
-    }
-  }
-
-  useEffect(() => {
-    handleOrientationChange()
-    window.addEventListener('orientationchange', handleOrientationChange)
-
-    return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange)
-    }
-  }, [])
 
   const floorPositions = [
     [0, -4.5, -0.25],
@@ -123,6 +103,10 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
     switchView()
   }, [])
 
+  useEffect(() => {
+    console.log(model)
+  }, [model])
+
   const switchView = () => {
     setTransitioning(true)
     setView(view === 'top' ? 'side' : 'top')
@@ -151,8 +135,6 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
                 <Model
                   path={modelPath}
                   onModelClick={handleModelClick}
-                  position={[0, 0, 0]}
-                  scale={[1, 1, 1]}
                 />
                 <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
                   <planeGeometry attach='geometry' args={[500, 500]} />
@@ -182,7 +164,10 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
       <button
         type='button'
         className='backPanoramaButton'
-        onClick={switchToPanorama}
+        onClick={() => {
+          setModel('building')
+          switchToPanorama()
+        }}
       >
         <CircleArrowLeftIcon width='45' height='45' />
       </button>
@@ -196,12 +181,6 @@ const MainPreview = ({ language, mainHidden, switchToPanorama }) => {
           {info[language].switchViewText}
         </button>
       </aside>
-      {isPortrait && (
-        <div className='rotate-message'>
-          <MobileRotatedIcon width='90' height='90' />
-          Por favor, gire el dispositivo
-        </div>
-      )}
     </section>
   )
 }

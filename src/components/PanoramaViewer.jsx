@@ -1,29 +1,10 @@
-import React, { useEffect, useState, useRef, Suspense } from 'react'
+import React, { useEffect, useRef, Suspense } from 'react'
 import { Viewer, ImagePanorama } from 'panolens'
-import MobileRotatedIcon from '../icons/MobileRotatedIcon'
 import ModalBox from './ModalBox'
 
 const PanoramaViewer = ({ handleLanguageChange, isVisible, isErased, handleTouchEnd, handleDoubleClick }) => {
-  const [isPortrait, setIsPortrait] = useState(false)
   const imageContainerRef = useRef(null)
   const viewerRef = useRef(null)
-
-  const handleOrientationChange = () => {
-    if (window.orientation === 0 || window.orientation === 180) {
-      setIsPortrait(true)
-    } else {
-      setIsPortrait(false)
-    }
-  }
-
-  useEffect(() => {
-    handleOrientationChange()
-    window.addEventListener('orientationchange', handleOrientationChange)
-
-    return () => {
-      window.removeEventListener('orientationchange', handleOrientationChange)
-    }
-  }, [])
 
   useEffect(() => {
     const loadPanorama = async () => {
@@ -57,12 +38,6 @@ const PanoramaViewer = ({ handleLanguageChange, isVisible, isErased, handleTouch
     <section className={`initial-screen ${isVisible ? '' : 'hidden'} ${isErased ? 'erased' : ''}`}>
       <ModalBox handleLanguageChange={handleLanguageChange} />
       <div className='image-container' ref={imageContainerRef} />
-      {isPortrait && (
-        <div className='rotate-message'>
-          <MobileRotatedIcon width='90' height='90' />
-          Por favor, gire el dispositivo
-        </div>
-      )}
     </section>
   )
 }

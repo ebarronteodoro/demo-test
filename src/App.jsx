@@ -7,6 +7,7 @@ function App () {
   const [isVisible, setIsVisible] = useState(true)
   const [isErased, setIsErased] = useState(false)
   const [mainHidden, setMainHidden] = useState(false)
+  const [model, setModel] = useState('building')
   let lastTouchEnd = 0
 
   const handleLanguageChange = (lang) => {
@@ -76,7 +77,7 @@ function App () {
         handleTouchEnd={handleTouchEnd}
         handleDoubleClick={handleDoubleClick}
       />
-      {!isVisible && isErased && <MainPreview language={language} mainHidden={mainHidden} switchToPanorama={switchToPanorama} />}
+      {!isVisible && isErased && <MainPreview language={language} mainHidden={mainHidden} switchToPanorama={switchToPanorama} model={model} setModel={setModel} />}
     </div>
   )
 }
