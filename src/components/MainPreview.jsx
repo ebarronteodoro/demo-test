@@ -168,6 +168,12 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
           <Model path={modelPath} onModelClick={handleModelClick} model={model} />
           <DepaModel path={apartmentPath} onModelClick={handleModelClick} model={model} />
           {model === 'building' && (
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
+              <planeGeometry attach='geometry' args={[500, 500]} />
+              <meshStandardMaterial attach='material' color='green' />
+            </mesh>
+          )}
+          {model === 'building' &&
             floorPositions.map((position, index) => (
               <Floor
                 key={index}
@@ -178,16 +184,11 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 setRoomQuantity={setRoomQuantity}
                 setFloorNumber={setFloorNumber}
                 setModel={setModel}
-              />
-            )),
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
-                <planeGeometry attach='geometry' args={[500, 500]} />
-                <meshStandardMaterial attach='material' color='green' />
-              </mesh>
-          )}
+              />))}
           <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} />
           {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
+
       </div>
       <button
         type='button'
