@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import info from '../data/info.json'
 import Apartment from './Apartment'
 
-const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel }) => {
+const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel, isTransitioning, setIsTransitioning }) => {
   const meshRef = useRef()
 
   const apartmentPositions = [
@@ -10,7 +10,25 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
     [4.9, 0, 0.05]
   ]
 
-  const handleWindowClick = (apartmentId) => {
+  const oscurecerPantalla = () => {
+    return new Promise((resolve) => {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    })
+  }
+
+  const aclararPantalla = () => {
+    return new Promise((resolve) => {
+      setIsTransitioning(false)
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    })
+  }
+
+  const handleWindowClick = async (apartmentId) => {
     const floorNumber = id
     const apartmentNumber = (id * 100) + apartmentId
     if (floorNumber === 0) {
@@ -22,7 +40,11 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
       floorNumber !== 0 ? (setFloorNumber(floorName)) : (setFloorNumber('Planta Baja'))
       setApartmentNumber(apartmentInfo)
       setRoomQuantity(apartmentType)
-      setModel('apartment')
+      await oscurecerPantalla()
+      setTimeout(async () => {
+        setModel('apartment')
+        await aclararPantalla()
+      }, 1000)
     }
   }
 
@@ -47,6 +69,7 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
             />
             )
       ))}
+
     </group>
   )
 }

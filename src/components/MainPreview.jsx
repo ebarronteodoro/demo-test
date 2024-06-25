@@ -7,6 +7,7 @@ import CircleArrowLeftIcon from '../icons/CircleArrowLeftIcon'
 import info from '../data/info.json'
 import PhoneIcon from '../icons/PhoneIcon'
 import CameraControls from './CameraControls'
+import ApartmentCameraController from './ApartmentCameraController'
 import Floor from './Floor'
 
 extend({ Raycaster: THREE.Raycaster })
@@ -74,7 +75,7 @@ const DepaModel = ({ path, onModelClick, model }) => {
 
   return (
     model === 'apartment' && (
-      <primitive object={scene} ref={meshRef} />
+      <primitive object={scene} ref={meshRef} position={[30, 0, 6.5]} scale={[1, 1, 1]} />
     )
   )
 }
@@ -104,6 +105,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   const [apartmentNumber, setApartmentNumber] = useState('')
   const [roomQuantity, setRoomQuantity] = useState('')
   const [selectedObject, setSelectedObject] = useState(null)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const floorPositions = [
     [0, -4.5, -0.25],
@@ -127,6 +129,10 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
 
   const handleTransitionEnd = () => {
     setTransitioning(false)
+  }
+
+  const handleZoomComplete = () => {
+    setIsTransitioning(false)
   }
 
   const handleModelClick = (object) => {
@@ -184,8 +190,10 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 setRoomQuantity={setRoomQuantity}
                 setFloorNumber={setFloorNumber}
                 setModel={setModel}
+                isTransitioning={isTransitioning}
+                setIsTransitioning={setIsTransitioning}
               />))}
-          <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} />
+          {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
           {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
 
@@ -201,15 +209,18 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
         <CircleArrowLeftIcon width='45' height='45' />
       </button>
       <aside className='demo-aside'>
-        <button type='button' className='switchViewButton' onClick={switchView}>
-          <RotateDotIcon
-            width='45'
-            height='45'
-            className={view === 'side' ? 'active' : ''}
-          />
-          {info[language].switchViewText}
-        </button>
+        {model === 'building' && (
+          <button type='button' className='switchViewButton' onClick={switchView}>
+            <RotateDotIcon
+              width='45'
+              height='45'
+              className={view === 'side' ? 'active' : ''}
+            />
+            {info[language].switchViewText}
+          </button>
+        )}
       </aside>
+      <div id='overlay' className={isTransitioning ? 'active' : null} />
     </section>
   )
 }
