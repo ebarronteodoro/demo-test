@@ -82,7 +82,7 @@ const DepaModel = ({ path, onModelClick, model }) => {
 
 const HighlightedEdges = ({ object }) => {
   const edgesGeometry = new THREE.EdgesGeometry(object.geometry)
-  const material = new THREE.LineBasicMaterial(object.name === 'Foliage001_16_-_Matte_Plastic_0' ? { color: 0x6AFF5B } : { color: 0xff0000 })
+  const material = new THREE.LineBasicMaterial(object.name === 'Foliage001_16_-_Matte_Plastic_0' ? { color: 0x6AFF5B } : { color: 0x011F4B })
   const lineSegments = new THREE.LineSegments(edgesGeometry, material)
 
   useEffect(() => {
@@ -106,6 +106,36 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   const [roomQuantity, setRoomQuantity] = useState('')
   const [selectedObject, setSelectedObject] = useState(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
+
+  const oscurecerPantalla = () => {
+    return new Promise((resolve) => {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    })
+  }
+
+  const aclararPantalla = () => {
+    return new Promise((resolve) => {
+      setIsTransitioning(false)
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    })
+  }
+
+  const switchToBuilding = async () => {
+    await oscurecerPantalla()
+    setTimeout(async () => {
+      setModel('building')
+      setTransitioning(true)
+      setView('top')
+    }, 1000)
+    setTimeout(async () => {
+      await aclararPantalla()
+    }, 1500)
+  }
 
   const floorPositions = [
     [0, -4.5, -0.25],
@@ -145,10 +175,6 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     switchView()
   }, [])
 
-  useEffect(() => {
-    console.log(model)
-  }, [model])
-
   const switchView = () => {
     setTransitioning(true)
     setView(view === 'top' ? 'side' : 'top')
@@ -175,7 +201,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
           <DepaModel path={apartmentPath} onModelClick={handleModelClick} model={model} />
           {model === 'building' && (
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
-              <planeGeometry attach='geometry' args={[500, 500]} />
+              <planeGeometry attach='geometry' args={[1000, 1000]} />
               <meshStandardMaterial attach='material' color='green' />
             </mesh>
           )}
@@ -190,20 +216,18 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 setRoomQuantity={setRoomQuantity}
                 setFloorNumber={setFloorNumber}
                 setModel={setModel}
-                isTransitioning={isTransitioning}
-                setIsTransitioning={setIsTransitioning}
+                oscurecerPantalla={oscurecerPantalla}
+                aclararPantalla={aclararPantalla}
               />))}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
           {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
-
       </div>
       <button
         type='button'
         className='backPanoramaButton'
         onClick={() => {
-          setModel('building')
-          switchToPanorama()
+          model === 'apartment' ? switchToBuilding() : switchToPanorama()
         }}
       >
         <CircleArrowLeftIcon width='45' height='45' />

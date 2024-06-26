@@ -13,7 +13,7 @@ const ApartmentCameraController = ({ onZoomComplete }) => {
 
     const targetPosition = new THREE.Vector3(0, 12, 0)
     const tween = new TWEEN.Tween(camera.position)
-      .to(targetPosition, 1000)
+      .to(targetPosition, 1500)
       .easing(TWEEN.Easing.Quadratic.InOut)
       .onUpdate(() => {
         camera.lookAt(new THREE.Vector3(0, 0, 0))

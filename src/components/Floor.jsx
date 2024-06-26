@@ -2,31 +2,13 @@ import React, { useRef } from 'react'
 import info from '../data/info.json'
 import Apartment from './Apartment'
 
-const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel, isTransitioning, setIsTransitioning }) => {
+const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel, oscurecerPantalla, aclararPantalla }) => {
   const meshRef = useRef()
 
   const apartmentPositions = [
     [-4.85, 0, 0.05],
     [4.9, 0, 0.05]
   ]
-
-  const oscurecerPantalla = () => {
-    return new Promise((resolve) => {
-      setIsTransitioning(true)
-      setTimeout(() => {
-        resolve()
-      }, 1000)
-    })
-  }
-
-  const aclararPantalla = () => {
-    return new Promise((resolve) => {
-      setIsTransitioning(false)
-      setTimeout(() => {
-        resolve()
-      }, 1000)
-    })
-  }
 
   const handleWindowClick = async (apartmentId) => {
     const floorNumber = id
@@ -43,8 +25,10 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
       await oscurecerPantalla()
       setTimeout(async () => {
         setModel('apartment')
-        await aclararPantalla()
       }, 1000)
+      setTimeout(async () => {
+        await aclararPantalla()
+      }, 1500)
     }
   }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import PanoramaViewer from './components/PanoramaViewer'
 import MainPreview from './components/MainPreview'
+import PanoramaViewerWithSuspense from './components/PanoramaViewer'
 
 function App () {
   const [language, setLanguage] = useState('')
@@ -69,7 +69,7 @@ function App () {
 
   return (
     <div className='app' onDoubleClick={handleDesktopDoubleClick}>
-      <PanoramaViewer
+      <PanoramaViewerWithSuspense
         handleLanguageChange={handleLanguageChange}
         isVisible={isVisible}
         isErased={isErased}
