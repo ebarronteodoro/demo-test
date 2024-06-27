@@ -3,7 +3,7 @@ import React from 'react'
 const ModalBox = ({ handleLanguageChange }) => {
   return (
     <div className='modalbox'>
-      <h1>ARISE</h1>
+      <img src='images/soil_logo.png' alt='Logo Soil' />
       <div>
         <button onClick={() => handleLanguageChange('en')}>English</button>
         <button onClick={() => handleLanguageChange('es')}>Español</button>

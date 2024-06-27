@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import info from '../data/info.json'
 import Apartment from './Apartment'
 
-const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel, oscurecerPantalla, aclararPantalla }) => {
+const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel, oscurecerPantalla, aclararPantalla, setApartmentPath }) => {
   const meshRef = useRef()
 
   const apartmentPositions = [
@@ -19,11 +19,14 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
       const floorName = info[language].building.floor[floorNumber].name
       const apartmentInfo = info[language].building.floor[floorNumber].apartments[apartmentNumber].name
       const apartmentType = info[language].building.floor[floorNumber].apartments[apartmentNumber].type
+      const modelPath = info[language].building.floor[floorNumber].apartments[apartmentNumber].apartment_path
       floorNumber !== 0 ? (setFloorNumber(floorName)) : (setFloorNumber('Planta Baja'))
+      console.log(modelPath)
       setApartmentNumber(apartmentInfo)
       setRoomQuantity(apartmentType)
       await oscurecerPantalla()
       setTimeout(async () => {
+        // setApartmentPath(modelPath)
         setModel('apartment')
       }, 1000)
       setTimeout(async () => {

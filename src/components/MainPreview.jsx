@@ -98,7 +98,7 @@ const HighlightedEdges = ({ object }) => {
 
 const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
   const modelPath = '/models/modelo_bueno.glb'
-  const apartmentPath = '/models/apartments/modelo_depa6.glb'
+  const [apartmentPath, setApartmentPath] = useState('/models/apartments/modelo_depa6.glb')
   const [view, setView] = useState('side')
   const [transitioning, setTransitioning] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
@@ -218,6 +218,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 setModel={setModel}
                 oscurecerPantalla={oscurecerPantalla}
                 aclararPantalla={aclararPantalla}
+                setApartmentPath={setApartmentPath}
               />))}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
           {selectedObject && <HighlightedEdges object={selectedObject} />}
