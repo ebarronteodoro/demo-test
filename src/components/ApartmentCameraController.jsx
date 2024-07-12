@@ -33,7 +33,7 @@ const ApartmentCameraController = ({ onZoomComplete }) => {
     TWEEN.update()
   })
 
-  return controlsEnabled ? <OrbitControls args={[camera, gl.domElement]} /> : null
+  return controlsEnabled ? <OrbitControls args={[camera, gl.domElement]} minDistance={8} maxDistance={15} /> : null
 }
 
 export default ApartmentCameraController
