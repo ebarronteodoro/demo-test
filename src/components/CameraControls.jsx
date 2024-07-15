@@ -11,7 +11,7 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     view === 'top' ? MapControls : OrbitControls
   )
   const [minZoom, setMinZoom] = useState(70)
-  const [maxZoom, setMaxZoom] = useState(125)
+  const [maxZoom, setMaxZoom] = useState(110)
   const Controls = controlsType
 
   const updateZoomLevels = () => {
@@ -19,11 +19,11 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     console.log(width)
     const height = window.innerHeight
     if (view === 'top') {
-      setMinZoom(width / 5)
-      setMaxZoom(width / 3)
+      setMinZoom(width / 15)
+      setMaxZoom(width / 10)
     } else {
       setMinZoom(height / 20)
-      setMaxZoom(height / 10)
+      setMaxZoom(height / 8)
     }
   }
 
@@ -35,7 +35,7 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
 
   useEffect(() => {
     if (view === 'top') {
-      targetPosition.current.set(0, 125, 0)
+      targetPosition.current.set(0, 110, 0)
       setControlsType(MapControls)
     } else {
       targetPosition.current.set(0, 20, 40)
