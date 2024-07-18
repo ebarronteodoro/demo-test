@@ -16,7 +16,6 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
 
   const updateZoomLevels = () => {
     const width = window.innerWidth
-    console.log(width)
     const height = window.innerHeight
     if (view === 'top') {
       setMinZoom(width / 15)

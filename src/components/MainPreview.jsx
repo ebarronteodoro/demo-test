@@ -41,7 +41,7 @@ const Model = ({ path, onModelClick, model }) => {
 
   return (
     model === 'building' && (
-      <primitive object={scene} ref={meshRef} />
+      <primitive object={scene} ref={meshRef} position={[0, -11, 0]} scale={[1, 1, 1]} />
     )
   )
 }
@@ -81,15 +81,19 @@ const DepaModel = ({ path, onModelClick, model }) => {
 }
 
 const HighlightedEdges = ({ object }) => {
-  const edgesGeometry = new THREE.EdgesGeometry(object.geometry)
-  const material = new THREE.LineBasicMaterial(object.name === 'Foliage001_16_-_Matte_Plastic_0' ? { color: 0x6AFF5B } : { color: 0x011F4B })
-  const lineSegments = new THREE.LineSegments(edgesGeometry, material)
+  const material = new THREE.MeshBasicMaterial({
+    color: object.id === 106 ? 0x6AFF5B : 0x011F4B,
+    transparent: true,
+    opacity: 0.3
+  })
+
+  const highlightedObject = new THREE.Mesh(object.geometry.clone(), material)
 
   useEffect(() => {
-    object.add(lineSegments)
+    object.add(highlightedObject)
 
     return () => {
-      object.remove(lineSegments)
+      object.remove(highlightedObject)
     }
   }, [object])
 
@@ -205,7 +209,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
               <meshStandardMaterial attach='material' color='green' />
             </mesh>
           )}
-          {model === 'building' &&
+          {/* {model === 'building' &&
             floorPositions.map((position, index) => (
               <Floor
                 key={index}
@@ -219,7 +223,8 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 oscurecerPantalla={oscurecerPantalla}
                 aclararPantalla={aclararPantalla}
                 setApartmentPath={setApartmentPath}
-              />))}
+              />
+            ))} */}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
           {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
