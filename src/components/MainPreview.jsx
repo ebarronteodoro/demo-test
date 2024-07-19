@@ -209,7 +209,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
               <meshStandardMaterial attach='material' color='green' />
             </mesh>
           )}
-          {/* {model === 'building' &&
+          {model === 'building' &&
             floorPositions.map((position, index) => (
               <Floor
                 key={index}
@@ -224,21 +224,22 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 aclararPantalla={aclararPantalla}
                 setApartmentPath={setApartmentPath}
               />
-            ))} */}
+            ))}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
           {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
       </div>
-      <button
-        type='button'
-        className='backPanoramaButton'
-        onClick={() => {
-          model === 'apartment' ? switchToBuilding() : switchToPanorama()
-        }}
-      >
-        <CircleArrowLeftIcon width='45' height='45' />
-      </button>
+      
       <aside className='demo-aside'>
+        <button
+          type='button'
+          className='backPanoramaButton'
+          onClick={() => {
+            model === 'apartment' ? switchToBuilding() : switchToPanorama()
+          }}
+        >
+          <CircleArrowLeftIcon width='45' height='45' />
+        </button>
         {model === 'building' && (
           <button type='button' className='switchViewButton' onClick={switchView}>
             <RotateDotIcon
