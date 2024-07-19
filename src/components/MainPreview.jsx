@@ -158,7 +158,11 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     [0, 34.5, -0.25],
     [0, 37.5, -0.25],
     [0, 40.5, -0.25],
-    [0, 43.5, -0.25]
+    [0, 43.5, -0.25],
+    [0, 46.5, -0.25],
+    [0, 49.5, -0.25],
+    [0, 52.5, -0.25],
+    [0, 55.5, -0.25]
   ]
 
   const handleTransitionEnd = () => {
@@ -226,7 +230,6 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
               />
             ))}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
-          {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
       </div>
       

@@ -27,8 +27,8 @@ const Apartment = ({ position, onClick }) => {
       onPointerOver={handlePointerOver}
       onPointerOut={handlePointerOut}
     >
-      <boxGeometry args={[8.4, 3, 15.25]} />
-      <meshBasicMaterial color={hovered ? 'red' : 'white'} transparent opacity={hovered ? 0.5 : 0} />
+      <boxGeometry args={[7.4, 3, 38]} />
+      <meshBasicMaterial color={hovered ? 'red' : 'transparent'} transparent opacity={hovered ? 0.5 : 0} />
     </mesh>
   )
 }

@@ -6,8 +6,8 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
   const meshRef = useRef()
 
   const apartmentPositions = [
-    [-4.85, 0, 0.05],
-    [4.9, 0, 0.05]
+    [-4, -4.6, -2.2],
+    [4.1, -4.6, -2.2]
   ]
 
   const handleWindowClick = async (apartmentId) => {
@@ -21,7 +21,6 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
       const apartmentType = info[language].building.floor[floorNumber].apartments[apartmentNumber].type
       const modelPath = info[language].building.floor[floorNumber].apartments[apartmentNumber].apartment_path
       floorNumber !== 0 ? (setFloorNumber(floorName)) : (setFloorNumber('Planta Baja'))
-      console.log(modelPath)
       setApartmentNumber(apartmentInfo)
       setRoomQuantity(apartmentType)
       await oscurecerPantalla()
