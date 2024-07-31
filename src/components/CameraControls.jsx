@@ -53,11 +53,23 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     }
   })
 
+  useEffect(() => {
+    // Disable right-click context menu on canvas
+    const handleContextMenu = (event) => {
+      event.preventDefault()
+    }
+    gl.domElement.addEventListener('contextmenu', handleContextMenu)
+    return () => {
+      gl.domElement.removeEventListener('contextmenu', handleContextMenu)
+    }
+  }, [gl.domElement])
+
   const controlProps = {
     args: [camera, gl.domElement],
     minDistance: minZoom,
     maxDistance: maxZoom,
-    target: [0, 0, 0]
+    target: [0, 0, 0],
+    enablePan: false // Disable panning with right-click
   }
 
   if (controlsType === OrbitControls) {
