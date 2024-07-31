@@ -41,7 +41,7 @@ const Model = ({ path, onModelClick, model }) => {
 
   return (
     model === 'building' && (
-      <primitive object={scene} ref={meshRef} position={[0, -11, 0]} scale={[1, 1, 1]} />
+      <><primitive object={scene} ref={meshRef} position={[0, -8, 0]} scale={[3, 3, 3]} metalness={0.5} roughness={0.1} /><directionalLight position={[-20, 30, 45]} castShadow color='white' intensity={2.5} /></>
     )
   )
 }
@@ -101,8 +101,8 @@ const HighlightedEdges = ({ object }) => {
 }
 
 const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
-  const modelPath = '/models/modelo_bueno.glb'
-  const [apartmentPath, setApartmentPath] = useState('/models/apartments/modelo_depa6.glb')
+  const modelPath = '/models/Edificio optimizado.glb'
+  const [apartmentPath, setApartmentPath] = useState('/models/apartments/X PISO.glb')
   const [view, setView] = useState('side')
   const [transitioning, setTransitioning] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
@@ -174,7 +174,17 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    object.name === 'Foliage001_16_-_Matte_Plastic_0' ? (console.log('Árbol clickeado:', object)) : (console.log('Objeto clickeado:', object))
+    object.name === 'Foliage001_16_-_Matte_Plastic_0' ? console.log('Árbol clickeado:', object) : console.log('Objeto clickeado:', object)
+
+    let parentGroup = object
+
+    // Traverse up to find the top-most parent group
+    while (parentGroup.parent && parentGroup.parent.type !== 'Scene') {
+      parentGroup = parentGroup.parent
+    }
+
+    // Log the parent group
+    console.log('Grupo clickeado:', parentGroup.children[0].children[0])
 
     setSelectedObject(object)
   }
@@ -202,18 +212,18 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
       </header>
       <div role='presentation' className='presentation-container'>
         <Canvas>
-          <Sky sunPosition={[0, 5, 50]} />
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} />
+          <Sky sunPosition={[0, 5, -50]} turbidity={10} rayleigh={1} />
+          <ambientLight intensity={0.1} />
+          <hemisphereLight intensity={0.2} />
           <Model path={modelPath} onModelClick={handleModelClick} model={model} />
           <DepaModel path={apartmentPath} onModelClick={handleModelClick} model={model} />
           {model === 'building' && (
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
-              <planeGeometry attach='geometry' args={[1000, 1000]} />
-              <meshStandardMaterial attach='material' color='green' />
+              <planeGeometry attach='geometry' args={[10000, 10000]} />
+              <meshStandardMaterial attach='material' color='#464646' metalness={0.1} roughness={0.01} />
             </mesh>
           )}
-          {model === 'building' &&
+          {/* {model === 'building' &&
             floorPositions.map((position, index) => (
               <Floor
                 key={index}
@@ -228,11 +238,12 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 aclararPantalla={aclararPantalla}
                 setApartmentPath={setApartmentPath}
               />
-            ))}
+            ))} */}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
+          {selectedObject && <HighlightedEdges object={selectedObject} />}
         </Canvas>
       </div>
-      
+
       <aside className='demo-aside'>
         <button
           type='button'
