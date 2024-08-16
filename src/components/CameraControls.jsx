@@ -86,9 +86,6 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
       MIDDLE: MOUSE.DOLLY,
       RIGHT: null
     },
-    touchPan: false,
-    touchRotate: true,
-    touchDolly: TorusGeometry,
     touches: {
       ONE: TOUCH.ROTATE,
       TWO: TOUCH.DOLLY
