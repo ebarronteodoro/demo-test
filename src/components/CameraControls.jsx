@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, MapControls } from '@react-three/drei'
-import { Vector3, MOUSE } from 'three' // Importa MOUSE desde three
+import { Vector3, TOUCH, MOUSE, TorusGeometry } from 'three' // Importa MOUSE desde three
 
 const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
   const { camera, gl } = useThree()
@@ -80,6 +80,7 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     maxDistance: maxZoom,
     target: [0, 0, 0],
     screenSpacePanning: false,
+    enablePan: false,
     mouseButtons: {
       LEFT: MOUSE.ROTATE,
       MIDDLE: MOUSE.DOLLY,
@@ -87,7 +88,11 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     },
     touchPan: false,
     touchRotate: true,
-    touchDolly: true
+    touchDolly: TorusGeometry,
+    touches: {
+      ONE: TOUCH.ROTATE,
+      TWO: TOUCH.DOLLY
+    }
   }
 
   if (controlsType === OrbitControls) {
