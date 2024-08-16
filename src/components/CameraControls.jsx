@@ -66,7 +66,7 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     }
   }
 
-  if (controlsType === OrbitControls) {
+  if (controlsType) {
     controlProps.minPolarAngle = Math.PI / 4
     controlProps.maxPolarAngle = Math.PI / 2
   }
