@@ -79,12 +79,12 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     minDistance: minZoom,
     maxDistance: maxZoom,
     target: [0, 0, 0],
-    screenSpacePanning: false
-    // mouseButtons: {
-    //   LEFT: MOUSE.ROTATE,
-    //   MIDDLE: MOUSE.DOLLY,
-    //   RIGHT: null
-    // }
+    screenSpacePanning: false,
+    mouseButtons: {
+      LEFT: MOUSE.ROTATE,
+      MIDDLE: MOUSE.DOLLY,
+      RIGHT: null
+    }
   }
 
   if (controlsType === OrbitControls) {
