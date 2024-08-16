@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, MapControls } from '@react-three/drei'
-import { Vector3 } from 'three'
+import { Vector3, MOUSE } from 'three' // Importa MOUSE desde three
 
 const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
   const { camera, gl } = useThree()
@@ -53,23 +53,17 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     }
   })
 
-  useEffect(() => {
-    // Disable right-click context menu on canvas
-    const handleContextMenu = (event) => {
-      event.preventDefault()
-    }
-    gl.domElement.addEventListener('contextmenu', handleContextMenu)
-    return () => {
-      gl.domElement.removeEventListener('contextmenu', handleContextMenu)
-    }
-  }, [gl.domElement])
-
   const controlProps = {
     args: [camera, gl.domElement],
     minDistance: minZoom,
     maxDistance: maxZoom,
     target: [0, 0, 0],
-    enablePan: false // Disable panning with right-click
+    screenSpacePanning: false,
+    mouseButtons: {
+      LEFT: MOUSE.ROTATE,
+      MIDDLE: MOUSE.DOLLY,
+      RIGHT: null
+    }
   }
 
   if (controlsType === OrbitControls) {

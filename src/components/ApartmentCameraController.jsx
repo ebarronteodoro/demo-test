@@ -37,8 +37,8 @@ const ApartmentCameraController = ({ onZoomComplete }) => {
     ? (
       <OrbitControls
         args={[camera, gl.domElement]}
-        minDistance={8}
-        maxDistance={15}
+        minDistance={10}
+        maxDistance={20}
         maxPolarAngle={Math.PI / 2.5}
       />
       )

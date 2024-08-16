@@ -9,6 +9,7 @@ import PhoneIcon from '../icons/PhoneIcon'
 import CameraControls from './CameraControls'
 import ApartmentCameraController from './ApartmentCameraController'
 import Floor from './Floor'
+import { useModel } from './ModelContext'
 
 extend({ Raycaster: THREE.Raycaster })
 
@@ -75,7 +76,7 @@ const DepaModel = ({ path, onModelClick, model }) => {
 
   return (
     model === 'apartment' && (
-      <primitive object={scene} ref={meshRef} position={[30, 0, 6.5]} scale={[1, 1, 1]} />
+      <primitive object={scene} ref={meshRef} scale={[1, 1, 1]} />
     )
   )
 }
@@ -90,8 +91,7 @@ const HighlightedEdges = ({ object }) => {
   const highlightedObject = new THREE.Mesh(object.geometry.clone(), material)
 
   useEffect(() => {
-    object.add(highlightedObject)
-
+    object.id !== 932 && object.add(highlightedObject)
     return () => {
       object.remove(highlightedObject)
     }
@@ -101,8 +101,14 @@ const HighlightedEdges = ({ object }) => {
 }
 
 const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
-  const modelPath = '/models/Edificio optimizado.glb'
-  const [apartmentPath, setApartmentPath] = useState('/models/apartments/X PISO.glb')
+  const modelPath = '/models/edificioterminado.glb'
+  // const { typo, setTypo } = useModel()
+  // const typoPath = {
+  //   apartment_1: '/src/models/apartments/model_apartment_1.glb',
+  //   apartment_2: '/src/models/apartments/model_apartment_2.glb',
+  //   building: '/src/models/building/model_building.glb'
+  // }[typo]
+  const [apartmentPath, setApartmentPath] = useState('/models/apartments/PRUEBA 208 .glb')
   const [view, setView] = useState('side')
   const [transitioning, setTransitioning] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
