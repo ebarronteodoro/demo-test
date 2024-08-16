@@ -84,7 +84,10 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
       LEFT: MOUSE.ROTATE,
       MIDDLE: MOUSE.DOLLY,
       RIGHT: null
-    }
+    },
+    touchPan: false,
+    touchRotate: true,
+    touchDolly: true
   }
 
   if (controlsType === OrbitControls) {
