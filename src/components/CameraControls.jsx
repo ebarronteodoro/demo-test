@@ -11,19 +11,39 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     view === 'side' ? OrbitControls : MapControls
   )
 
+  function detectDeviceType (width) {
+    const mobileBreakpoint = 768
+
+    if (width <= mobileBreakpoint) {
+      return 'mobile'
+    } else {
+      return 'desktop'
+    }
+  }
+
   const width = window.innerWidth
   const height = window.innerHeight
-  const [minZoom, setMinZoom] = useState(70)
-  const [maxZoom, setMaxZoom] = useState(width / 3)
+  const sumDimensions = width + height
+  console.log(`El width es: ${width} y el height es: ${height} y mi ratio es de: ${width + height}`)
+  const [minZoom, setMinZoom] = useState(sumDimensions / 13)
+  const [maxZoom, setMaxZoom] = useState(sumDimensions / 10)
+  const deviceType = detectDeviceType(width, height)
   const Controls = controlsType
 
   const updateZoomLevels = () => {
     if (controlsType === MapControls) {
-      setMinZoom(width / 15)
-      setMaxZoom(width / 3)
+      if (deviceType === 'desktop') {
+        console.log('a')
+        setMinZoom(sumDimensions / 25)
+        setMaxZoom(sumDimensions / 17)
+      } else {
+        console.log('b')
+        setMinZoom(sumDimensions / 15)
+        setMaxZoom(sumDimensions / 12)
+      }
     } else {
-      setMinZoom(height / 20)
-      setMaxZoom(height / 8)
+      setMinZoom(sumDimensions / 35)
+      setMaxZoom(sumDimensions / 27)
     }
   }
 
