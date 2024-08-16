@@ -180,19 +180,18 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    object.name === 'Foliage001_16_-_Matte_Plastic_0' ? console.log('Árbol clickeado:', object) : console.log('Objeto clickeado:', object)
+    // object.name === 'Foliage001_16_-_Matte_Plastic_0' ? console.log('Árbol clickeado:', object) : console.log('Objeto clickeado:', object)
 
-    let parentGroup = object
+    // let parentGroup = object
 
-    // Traverse up to find the top-most parent group
-    while (parentGroup.parent && parentGroup.parent.type !== 'Scene') {
-      parentGroup = parentGroup.parent
-    }
+    // // Traverse up to find the top-most parent group
+    // while (parentGroup.parent && parentGroup.parent.type !== 'Scene') {
+    //   parentGroup = parentGroup.parent
+    // }
 
-    // Log the parent group
-    console.log('Grupo clickeado:', parentGroup.children[0].children[0])
+    // console.log('Grupo clickeado:', parentGroup.children[0].children[0])
 
-    setSelectedObject(object)
+    // setSelectedObject(object)
   }
 
   useEffect(() => {
@@ -246,7 +245,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
               />
             ))} */}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
-          {selectedObject && <HighlightedEdges object={selectedObject} />}
+          {/* {selectedObject && <HighlightedEdges object={selectedObject} />} */}
         </Canvas>
       </div>
 

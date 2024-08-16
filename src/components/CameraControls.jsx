@@ -8,18 +8,19 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
   const targetPosition = useRef(new Vector3(0, 125, 0))
   const currentPosition = useRef(new Vector3().copy(camera.position))
   const [controlsType, setControlsType] = useState(
-    view === 'top' ? MapControls : OrbitControls
+    view === 'side' ? OrbitControls : MapControls
   )
+
+  const width = window.innerWidth
+  const height = window.innerHeight
   const [minZoom, setMinZoom] = useState(70)
-  const [maxZoom, setMaxZoom] = useState(110)
+  const [maxZoom, setMaxZoom] = useState(width / 3)
   const Controls = controlsType
 
   const updateZoomLevels = () => {
-    const width = window.innerWidth
-    const height = window.innerHeight
-    if (view === 'top') {
+    if (controlsType === MapControls) {
       setMinZoom(width / 15)
-      setMaxZoom(width / 10)
+      setMaxZoom(width / 3)
     } else {
       setMinZoom(height / 20)
       setMaxZoom(height / 8)
@@ -58,15 +59,15 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
     minDistance: minZoom,
     maxDistance: maxZoom,
     target: [0, 0, 0],
-    screenSpacePanning: false,
-    mouseButtons: {
-      LEFT: MOUSE.ROTATE,
-      MIDDLE: MOUSE.DOLLY,
-      RIGHT: null
-    }
+    screenSpacePanning: false
+    // mouseButtons: {
+    //   LEFT: MOUSE.ROTATE,
+    //   MIDDLE: MOUSE.DOLLY,
+    //   RIGHT: null
+    // }
   }
 
-  if (controlsType) {
+  if (controlsType === OrbitControls) {
     controlProps.minPolarAngle = Math.PI / 4
     controlProps.maxPolarAngle = Math.PI / 2
   }
