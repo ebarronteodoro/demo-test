@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import MainPreview from './components/MainPreview'
 import PanoramaViewerWithSuspense from './components/PanoramaViewer'
+import { ModelProvider } from './components/ModelContext'
 
 function App () {
   const [language, setLanguage] = useState('')
@@ -68,17 +69,19 @@ function App () {
   }
 
   return (
-    <div className='app' onDoubleClick={handleDesktopDoubleClick}>
-      <PanoramaViewerWithSuspense
-        handleLanguageChange={handleLanguageChange}
-        isVisible={isVisible}
-        isErased={isErased}
-        toggleFullscreen={toggleFullscreen}
-        handleTouchEnd={handleTouchEnd}
-        handleDoubleClick={handleDoubleClick}
-      />
-      {!isVisible && isErased && <MainPreview language={language} mainHidden={mainHidden} switchToPanorama={switchToPanorama} model={model} setModel={setModel} />}
-    </div>
+    <ModelProvider>
+      <div className='app' onDoubleClick={handleDesktopDoubleClick}>
+        <PanoramaViewerWithSuspense
+          handleLanguageChange={handleLanguageChange}
+          isVisible={isVisible}
+          isErased={isErased}
+          toggleFullscreen={toggleFullscreen}
+          handleTouchEnd={handleTouchEnd}
+          handleDoubleClick={handleDoubleClick}
+        />
+        {!isVisible && isErased && <MainPreview language={language} mainHidden={mainHidden} switchToPanorama={switchToPanorama} model={model} setModel={setModel} />}
+      </div>
+    </ModelProvider>
   )
 }
 

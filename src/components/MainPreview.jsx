@@ -6,6 +6,7 @@ import RotateDotIcon from '../icons/RotateDotIcon'
 import CircleArrowLeftIcon from '../icons/CircleArrowLeftIcon'
 import info from '../data/info.json'
 import PhoneIcon from '../icons/PhoneIcon'
+import EyeIcon from '../icons/EyeIcon'
 import CameraControls from './CameraControls'
 import ApartmentCameraController from './ApartmentCameraController'
 import Floor from './Floor'
@@ -101,14 +102,18 @@ const HighlightedEdges = ({ object }) => {
 }
 
 const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
-  const modelPath = '/models/edificioterminado.glb'
-  // const { typo, setTypo } = useModel()
-  // const typoPath = {
-  //   apartment_1: '/src/models/apartments/model_apartment_1.glb',
-  //   apartment_2: '/src/models/apartments/model_apartment_2.glb',
-  //   building: '/src/models/building/model_building.glb'
-  // }[typo]
-  const [apartmentPath, setApartmentPath] = useState('/models/apartments/PRUEBA 208 .glb')
+  const modelPath = '/models/Edificio optimizado.glb'
+  const { typo, setTypo } = useModel()
+  const modeloPath = {
+    t_a: '/models/typologies/TIPO-A.glb',
+    t_b: '/models/typologies/TIPO-B.glb',
+    t_c: '/models/typologies/TIPO-C.glb',
+    t_d: '/models/typologies/TIPO-D.glb',
+    t_f: '/models/typologies/TIPO-F.glb',
+    f_4: '/models/floors/Piso-4.glb',
+    f_5: '/'
+  }[typo]
+  const [apartmentPath, setApartmentPath] = useState(modeloPath)
   const [view, setView] = useState('side')
   const [transitioning, setTransitioning] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
@@ -203,6 +208,10 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     setView(view === 'top' ? 'side' : 'top')
   }
 
+  const viewApartment = () => {
+    console.log('Ver Tipologia')
+  }
+
   return (
     <section className={`demo-loaded ${mainHidden ? 'hidden' : ''}`}>
       <header>
@@ -228,7 +237,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
               <meshStandardMaterial attach='material' color='#464646' metalness={0.1} roughness={0.01} />
             </mesh>
           )}
-          {/* {model === 'building' &&
+          {model === 'building' &&
             floorPositions.map((position, index) => (
               <Floor
                 key={index}
@@ -243,7 +252,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 aclararPantalla={aclararPantalla}
                 setApartmentPath={setApartmentPath}
               />
-            ))} */}
+            ))}
           {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
           {/* {selectedObject && <HighlightedEdges object={selectedObject} />} */}
         </Canvas>
@@ -269,6 +278,10 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
             {info[language].switchViewText}
           </button>
         )}
+        <button type='button' className='viewFloorButton' onClick={viewApartment} disabled={view !== 'side'}>
+          <EyeIcon width='45' height='45' />
+          Ver piso
+        </button>
       </aside>
       <div id='overlay' className={isTransitioning ? 'active' : null} />
     </section>

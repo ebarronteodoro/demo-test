@@ -19,13 +19,11 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
       const floorName = info[language].building.floor[floorNumber].name
       const apartmentInfo = info[language].building.floor[floorNumber].apartments[apartmentNumber].name
       const apartmentType = info[language].building.floor[floorNumber].apartments[apartmentNumber].type
-      const modelPath = info[language].building.floor[floorNumber].apartments[apartmentNumber].apartment_path
       floorNumber !== 0 ? (setFloorNumber(floorName)) : (setFloorNumber('Planta Baja'))
       setApartmentNumber(apartmentInfo)
       setRoomQuantity(apartmentType)
       await oscurecerPantalla()
       setTimeout(async () => {
-        // setApartmentPath(modelPath)
         setModel('apartment')
       }, 1000)
       setTimeout(async () => {

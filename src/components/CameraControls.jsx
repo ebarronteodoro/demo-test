@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, MapControls } from '@react-three/drei'
-import { Vector3, TOUCH, MOUSE, TorusGeometry } from 'three' // Importa MOUSE desde three
+import { Vector3, TOUCH, MOUSE } from 'three'
 
 const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
   const { camera, gl } = useThree()
@@ -24,7 +24,6 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
   const width = window.innerWidth
   const height = window.innerHeight
   const sumDimensions = width + height
-  console.log(`El width es: ${width} y el height es: ${height} y mi ratio es de: ${width + height}`)
   const [minZoom, setMinZoom] = useState(sumDimensions / 13)
   const [maxZoom, setMaxZoom] = useState(sumDimensions / 10)
   const deviceType = detectDeviceType(width, height)
@@ -33,11 +32,9 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
   const updateZoomLevels = () => {
     if (controlsType === MapControls) {
       if (deviceType === 'desktop') {
-        console.log('a')
         setMinZoom(sumDimensions / 25)
         setMaxZoom(sumDimensions / 17)
       } else {
-        console.log('b')
         setMinZoom(sumDimensions / 15)
         setMaxZoom(sumDimensions / 12)
       }
@@ -55,10 +52,10 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
 
   useEffect(() => {
     if (view === 'top') {
-      targetPosition.current.set(0, 110, 0)
+      targetPosition.current.set(-0.9, sumDimensions / 29, 0)
       setControlsType(MapControls)
     } else {
-      targetPosition.current.set(0, 20, 40)
+      targetPosition.current.set(-60, sumDimensions / 30, sumDimensions / 32)
       setControlsType(OrbitControls)
     }
   }, [view])

@@ -10,8 +10,9 @@ const ApartmentCameraController = ({ onZoomComplete }) => {
 
   useEffect(() => {
     camera.position.set(0, 0, 10)
+    camera.updateProjectionMatrix()
 
-    const targetPosition = new THREE.Vector3(0, 12, 0)
+    const targetPosition = new THREE.Vector3(0, 180, 0)
     const tween = new TWEEN.Tween(camera.position)
       .to(targetPosition, 1500)
       .easing(TWEEN.Easing.Quadratic.InOut)
@@ -37,8 +38,8 @@ const ApartmentCameraController = ({ onZoomComplete }) => {
     ? (
       <OrbitControls
         args={[camera, gl.domElement]}
-        minDistance={10}
-        maxDistance={20}
+        minDistance={170}
+        maxDistance={200}
         maxPolarAngle={Math.PI / 2.5}
       />
       )
