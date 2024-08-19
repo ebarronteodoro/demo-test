@@ -1,105 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react'
-import { Canvas, useThree, extend } from '@react-three/fiber'
-import { Sky, useGLTF } from '@react-three/drei'
-import * as THREE from 'three'
+import React, { useState, useEffect } from 'react'
+import { Canvas } from '@react-three/fiber'
+import { Sky } from '@react-three/drei'
+import Model from './Model'
+import DepaModel from './DepaModel'
+import Floor from './Floor'
+import CameraControls from './CameraControls'
+import ApartmentCameraController from './ApartmentCameraController'
 import RotateDotIcon from '../icons/RotateDotIcon'
 import CircleArrowLeftIcon from '../icons/CircleArrowLeftIcon'
 import info from '../data/info.json'
 import PhoneIcon from '../icons/PhoneIcon'
 import EyeIcon from '../icons/EyeIcon'
-import CameraControls from './CameraControls'
-import ApartmentCameraController from './ApartmentCameraController'
-import Floor from './Floor'
-import { useModel } from './ModelContext'
-
-extend({ Raycaster: THREE.Raycaster })
-
-const Model = ({ path, onModelClick, model }) => {
-  const { scene } = useGLTF(path)
-  const meshRef = useRef()
-  const { gl, camera } = useThree()
-  const raycaster = new THREE.Raycaster()
-
-  const handleClick = (event) => {
-    const mouse = new THREE.Vector2()
-    mouse.x = (event.clientX / gl.domElement.clientWidth) * 2 - 1
-    mouse.y = -(event.clientY / gl.domElement.clientHeight) * 2 + 1
-
-    raycaster.setFromCamera(mouse, camera)
-    const intersects = raycaster.intersectObject(scene, true)
-
-    if (intersects.length > 0) {
-      onModelClick(intersects[0].object)
-    }
-  }
-
-  useEffect(() => {
-    gl.domElement.addEventListener('click', handleClick)
-
-    return () => {
-      gl.domElement.removeEventListener('click', handleClick)
-    }
-  }, [gl, camera, scene])
-
-  return (
-    model === 'building' && (
-      <><primitive object={scene} ref={meshRef} position={[0, -8, 0]} scale={[3, 3, 3]} metalness={0.5} roughness={0.1} /><directionalLight position={[-20, 30, 45]} castShadow color='white' intensity={2.5} /></>
-    )
-  )
-}
-
-const DepaModel = ({ path, onModelClick, model }) => {
-  const { scene } = useGLTF(path)
-  const meshRef = useRef()
-  const { gl, camera } = useThree()
-  const raycaster = new THREE.Raycaster()
-
-  const handleClick = (event) => {
-    const mouse = new THREE.Vector2()
-    mouse.x = (event.clientX / gl.domElement.clientWidth) * 2 - 1
-    mouse.y = -(event.clientY / gl.domElement.clientHeight) * 2 + 1
-
-    raycaster.setFromCamera(mouse, camera)
-    const intersects = raycaster.intersectObject(scene, true)
-
-    if (intersects.length > 0) {
-      onModelClick(intersects[0].object)
-    }
-  }
-
-  useEffect(() => {
-    gl.domElement.addEventListener('click', handleClick)
-
-    return () => {
-      gl.domElement.removeEventListener('click', handleClick)
-    }
-  }, [gl, camera, scene])
-
-  return (
-    model === 'apartment' && (
-      <primitive object={scene} ref={meshRef} scale={[1, 1, 1]} />
-    )
-  )
-}
-
-const HighlightedEdges = ({ object }) => {
-  const material = new THREE.MeshBasicMaterial({
-    color: object.id === 106 ? 0x6AFF5B : 0x011F4B,
-    transparent: true,
-    opacity: 0.3
-  })
-
-  const highlightedObject = new THREE.Mesh(object.geometry.clone(), material)
-
-  useEffect(() => {
-    object.id !== 932 && object.add(highlightedObject)
-    return () => {
-      object.remove(highlightedObject)
-    }
-  }, [object])
-
-  return null
-}
+import { useModel } from '../hooks/ModelContext'
+import EyeUpIcon from '../icons/EyeUpIcon'
 
 const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
   const modelPath = '/models/Edificio optimizado.glb'
@@ -113,14 +26,31 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     f_4: '/models/floors/Piso-4.glb',
     f_5: '/'
   }[typo]
-  const [apartmentPath, setApartmentPath] = useState(modeloPath)
+
   const [view, setView] = useState('side')
+  const [isWire, setIsWire] = useState(true)
   const [transitioning, setTransitioning] = useState(false)
+  const [isFloorClicked, setIsFloorClicked] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
+  const [currentFloor, setCurrentFloor] = useState(null)
+  const [nextFloor, setNextFloor] = useState(null)
   const [apartmentNumber, setApartmentNumber] = useState('')
   const [roomQuantity, setRoomQuantity] = useState('')
-  const [selectedObject, setSelectedObject] = useState(null)
+  // const [selectedObject, setSelectedObject] = useState(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
+
+  const [playAnimation, setPlayAnimation] = useState(false)
+  const [reverseAnimation, setReverseAnimation] = useState(false)
+
+  const handlePlayAnimation = () => {
+    setReverseAnimation(false) // Desactiva la reversa si estaba activa
+    setPlayAnimation(true) // Activa la animación hacia adelante
+  }
+
+  const handleReverseAnimation = () => {
+    setPlayAnimation(false) // Desactiva la animación hacia adelante si estaba activa
+    setReverseAnimation(true) // Activa la animación en reversa
+  }
 
   const oscurecerPantalla = () => {
     return new Promise((resolve) => {
@@ -153,27 +83,24 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const floorPositions = [
-    [0, -4.5, -0.25],
-    [0, -1.5, -0.25],
-    [0, 1.5, -0.25],
-    [0, 4.5, -0.25],
-    [0, 7.5, -0.25],
-    [0, 10.5, -0.25],
-    [0, 13.5, -0.25],
-    [0, 16.5, -0.25],
-    [0, 19.5, -0.25],
-    [0, 22.5, -0.25],
-    [0, 25.5, -0.25],
-    [0, 28.5, -0.25],
-    [0, 31.5, -0.25],
-    [0, 34.5, -0.25],
-    [0, 37.5, -0.25],
-    [0, 40.5, -0.25],
-    [0, 43.5, -0.25],
-    [0, 46.5, -0.25],
-    [0, 49.5, -0.25],
-    [0, 52.5, -0.25],
-    [0, 55.5, -0.25]
+    [6.5, 5, 6.25],
+    [6.5, 7.45, 6.25],
+    [6.5, 9.9, 6.25],
+    [6.5, 12.35, 6.25],
+    [6.5, 14.8, 6.25],
+    [6.5, 17.25, 6.25],
+    [6.5, 19.7, 6.25],
+    [6.5, 22.15, 6.25],
+    [6.5, 24.6, 6.25],
+    [6.5, 27.05, 6.25],
+    [6.5, 29.5, 6.25],
+    [6.5, 31.95, 6.25],
+    [6.5, 34.4, 6.25],
+    [6.5, 36.85, 6.25],
+    [6.5, 39.3, 6.25],
+    [6.5, 41.75, 6.25],
+    [6.5, 44.2, 6.25],
+    [6.5, 46.65, 6.25]
   ]
 
   const handleTransitionEnd = () => {
@@ -185,18 +112,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    // object.name === 'Foliage001_16_-_Matte_Plastic_0' ? console.log('Árbol clickeado:', object) : console.log('Objeto clickeado:', object)
-
-    // let parentGroup = object
-
-    // // Traverse up to find the top-most parent group
-    // while (parentGroup.parent && parentGroup.parent.type !== 'Scene') {
-    //   parentGroup = parentGroup.parent
-    // }
-
-    // console.log('Grupo clickeado:', parentGroup.children[0].children[0])
-
-    // setSelectedObject(object)
+    // Lógica del click en el modelo
   }
 
   useEffect(() => {
@@ -209,7 +125,14 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const viewApartment = () => {
-    console.log('Ver Tipologia')
+    oscurecerPantalla()
+    setTypo(nextFloor)
+    setTimeout(async () => {
+      setModel('apartment')
+    }, 1000)
+    setTimeout(async () => {
+      aclararPantalla()
+    }, 1500)
   }
 
   return (
@@ -230,7 +153,14 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
           <ambientLight intensity={0.1} />
           <hemisphereLight intensity={0.2} />
           <Model path={modelPath} onModelClick={handleModelClick} model={model} />
-          <DepaModel path={apartmentPath} onModelClick={handleModelClick} model={model} />
+          <DepaModel
+            path={modeloPath}
+            onModelClick={handleModelClick}
+            model={model}
+            playAnimation={playAnimation}
+            reverseAnimation={reverseAnimation}
+            setIsWire={setIsWire}
+          />
           {model === 'building' && (
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
               <planeGeometry attach='geometry' args={[10000, 10000]} />
@@ -240,20 +170,32 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
           {model === 'building' &&
             floorPositions.map((position, index) => (
               <Floor
-                key={index}
+                key={index + 3}
                 position={position}
-                id={index}
+                id={index + 3}
                 language={language}
                 setApartmentNumber={setApartmentNumber}
                 setRoomQuantity={setRoomQuantity}
                 setFloorNumber={setFloorNumber}
                 setModel={setModel}
-                oscurecerPantalla={oscurecerPantalla}
-                aclararPantalla={aclararPantalla}
-                setApartmentPath={setApartmentPath}
+                setIsFloorClicked={setIsFloorClicked}
+                setCurrentFloor={setCurrentFloor}
+                currentFloor={currentFloor}
+                setNextFloor={setNextFloor}
               />
             ))}
-          {model === 'building' ? <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} /> : <ApartmentCameraController view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} onZoomComplete={handleZoomComplete} />}
+          {model === 'building'
+            ? (
+              <CameraControls view={view} transitioning={transitioning} onTransitionEnd={handleTransitionEnd} />
+              )
+            : (
+              <ApartmentCameraController
+                view={view}
+                transitioning={transitioning}
+                onTransitionEnd={handleTransitionEnd}
+                onZoomComplete={handleZoomComplete}
+              />
+              )}
           {/* {selectedObject && <HighlightedEdges object={selectedObject} />} */}
         </Canvas>
       </div>
@@ -263,25 +205,38 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
           type='button'
           className='backPanoramaButton'
           onClick={() => {
-            model === 'apartment' ? switchToBuilding() : switchToPanorama()
+            if (model === 'building') {
+              switchToPanorama()
+            } else if (model === 'apartment') {
+              if (isWire === false) {
+                handleReverseAnimation()
+              } else {
+                switchToBuilding()
+              }
+            }
           }}
         >
           <CircleArrowLeftIcon width='45' height='45' />
         </button>
         {model === 'building' && (
           <button type='button' className='switchViewButton' onClick={switchView}>
-            <RotateDotIcon
-              width='45'
-              height='45'
-              className={view === 'side' ? 'active' : ''}
-            />
+            <RotateDotIcon width='45' height='45' className={view === 'side' ? 'active' : ''} />
             {info[language].switchViewText}
           </button>
         )}
-        <button type='button' className='viewFloorButton' onClick={viewApartment} disabled={view !== 'side'}>
-          <EyeIcon width='45' height='45' />
-          Ver piso
-        </button>
+        {model === 'building' && (
+          <button type='button' className='viewFloorButton' onClick={viewApartment} disabled={isFloorClicked !== true}>
+            <EyeIcon width='45' height='45' />
+            Ver piso
+          </button>
+        )}
+        {model === 'apartment' && (
+          <>
+            <button type='button' className='switchTypoView' onClick={handlePlayAnimation} disabled={isWire === false}>
+              <EyeUpIcon width='45' height='45' />
+            </button>
+          </>
+        )}
       </aside>
       <div id='overlay' className={isTransitioning ? 'active' : null} />
     </section>

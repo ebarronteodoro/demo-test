@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import MainPreview from './components/MainPreview'
 import PanoramaViewerWithSuspense from './components/PanoramaViewer'
-import { ModelProvider } from './components/ModelContext'
+import { ModelProvider } from './hooks/ModelContext'
 
 function App () {
   const [language, setLanguage] = useState('')

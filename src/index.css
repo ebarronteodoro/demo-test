@@ -161,14 +161,11 @@ aside {
   z-index: 9999;
   display: flex;
   justify-content: space-evenly;
-  /* flex-direction: column; */
-  /* align-items: center; */
   background-color: rgba(0, 0, 0, 0.62);
 
   & .switchViewButton,
-  .viewFloorButton {
-    /* margin-top: 400px; */
-
+  .viewFloorButton,
+  .switchTypoView {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -192,7 +189,8 @@ aside {
     }
   }
 
-  & .viewFloorButton:disabled {
+  & .viewFloorButton:disabled,
+  .switchTypoView:disabled {
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;

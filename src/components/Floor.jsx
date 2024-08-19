@@ -2,34 +2,32 @@ import React, { useRef } from 'react'
 import info from '../data/info.json'
 import Apartment from './Apartment'
 
-const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel, oscurecerPantalla, aclararPantalla, setApartmentPath }) => {
+const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, setFloorNumber, setModel, setIsFloorClicked, setCurrentFloor, currentFloor, setNextFloor }) => {
   const meshRef = useRef()
 
   const apartmentPositions = [
-    [-4, -4.6, -2.2],
-    [4.1, -4.6, -2.2]
+    [-4, -4.6, -2.2]
+    // [4.1, -4.6, -2.2]
   ]
 
   const handleWindowClick = async (apartmentId) => {
     const floorNumber = id
     const apartmentNumber = (id * 100) + apartmentId
-    if (floorNumber === 0) {
-      console.log('No existen departamentos en el piso 0')
+    const floorName = info[language].building.floor[floorNumber].name
+    const apartmentInfo = info[language].building.floor[floorNumber].apartments[apartmentNumber].name
+    const apartmentType = info[language].building.floor[floorNumber].apartments[apartmentNumber].type
+    floorNumber !== 0 ? (setFloorNumber(floorName)) : (setFloorNumber('Planta Baja'))
+    setApartmentNumber(apartmentInfo)
+    setRoomQuantity(apartmentType)
+    setCurrentFloor(floorNumber)
+    if (floorNumber === 6) {
+      setNextFloor('t_b')
+    } else if (floorNumber === 7) {
+      setNextFloor('t_c')
     } else {
-      const floorName = info[language].building.floor[floorNumber].name
-      const apartmentInfo = info[language].building.floor[floorNumber].apartments[apartmentNumber].name
-      const apartmentType = info[language].building.floor[floorNumber].apartments[apartmentNumber].type
-      floorNumber !== 0 ? (setFloorNumber(floorName)) : (setFloorNumber('Planta Baja'))
-      setApartmentNumber(apartmentInfo)
-      setRoomQuantity(apartmentType)
-      await oscurecerPantalla()
-      setTimeout(async () => {
-        setModel('apartment')
-      }, 1000)
-      setTimeout(async () => {
-        await aclararPantalla()
-      }, 1500)
+      setNextFloor('t_a')
     }
+    setIsFloorClicked(true)
   }
 
   return (
@@ -42,16 +40,17 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
         <meshBasicMaterial color='white' transparent opacity={0} />
       </mesh>
       {apartmentPositions.map((windowPos, index) => (
-        id === 0
-          ? null
-          : (
-            <Apartment
-              key={index}
-              position={windowPos.map((value, i) => value + position[i])}
-              onClick={() => handleWindowClick(index + 1)}
-              setModel={setModel}
-            />
-            )
+      // LÍNEAS COMENTADAS, AVISAR A ESTEBAN
+      // id === 0
+      //   ? null
+      //   : (
+        <Apartment
+          key={index}
+          position={windowPos.map((value, i) => value + position[i])}
+          onClick={() => handleWindowClick(index + 1)}
+          setModel={setModel}
+        />
+        // )
       ))}
 
     </group>
