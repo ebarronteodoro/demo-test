@@ -4,7 +4,7 @@ import PanoramaViewerWithSuspense from './components/PanoramaViewer'
 import { ModelProvider } from './hooks/ModelContext'
 
 function App () {
-  const [language, setLanguage] = useState('')
+  const [language, setLanguage] = useState('es')
   const [isVisible, setIsVisible] = useState(true)
   const [isErased, setIsErased] = useState(false)
   const [mainHidden, setMainHidden] = useState(false)
@@ -12,9 +12,12 @@ function App () {
   let lastTouchEnd = 0
 
   const handleLanguageChange = (lang) => {
+    setLanguage(lang)
+  }
+
+  const switchToMain = () => {
     setIsVisible(false)
     setTimeout(() => {
-      setLanguage(lang)
       setIsErased(true)
     }, 300)
   }
@@ -73,13 +76,15 @@ function App () {
       <div className='app' onDoubleClick={handleDesktopDoubleClick}>
         <PanoramaViewerWithSuspense
           handleLanguageChange={handleLanguageChange}
+          language={language}
           isVisible={isVisible}
           isErased={isErased}
           toggleFullscreen={toggleFullscreen}
           handleTouchEnd={handleTouchEnd}
           handleDoubleClick={handleDoubleClick}
+          switchToMain={switchToMain}
         />
-        {!isVisible && isErased && <MainPreview language={language} mainHidden={mainHidden} switchToPanorama={switchToPanorama} model={model} setModel={setModel} />}
+        {isVisible !== true && isErased === true && <MainPreview language={language} mainHidden={mainHidden} switchToPanorama={switchToPanorama} model={model} setModel={setModel} />}
       </div>
     </ModelProvider>
   )

@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react'
 const ModelContext = createContext()
 
 export const ModelProvider = ({ children }) => {
-  const [typo, setTypo] = useState('t_a')
+  const [typo, setTypo] = useState('f_4')
 
   return (
     <ModelContext.Provider value={{ typo, setTypo }}>

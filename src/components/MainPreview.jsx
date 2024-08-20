@@ -13,6 +13,7 @@ import PhoneIcon from '../icons/PhoneIcon'
 import EyeIcon from '../icons/EyeIcon'
 import { useModel } from '../hooks/ModelContext'
 import EyeUpIcon from '../icons/EyeUpIcon'
+import HighlightedEdges from './HighlightedEdges'
 
 const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
   const modelPath = '/models/Edificio optimizado.glb'
@@ -23,7 +24,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     t_c: '/models/typologies/TIPO-C.glb',
     t_d: '/models/typologies/TIPO-D.glb',
     t_f: '/models/typologies/TIPO-F.glb',
-    f_4: '/models/floors/Piso-4.glb',
+    f_4: '/models/floors/modelo_piso_4.1.glb',
     f_5: '/'
   }[typo]
 
@@ -36,7 +37,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   const [nextFloor, setNextFloor] = useState(null)
   const [apartmentNumber, setApartmentNumber] = useState('')
   const [roomQuantity, setRoomQuantity] = useState('')
-  // const [selectedObject, setSelectedObject] = useState(null)
+  const [selectedObject, setSelectedObject] = useState(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
   const [playAnimation, setPlayAnimation] = useState(false)
@@ -112,7 +113,8 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    // Lógica del click en el modelo
+    console.log(object.parent)
+    setSelectedObject(object.parent) // Guardar el objeto seleccionado para resaltarlo
   }
 
   useEffect(() => {
@@ -160,6 +162,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
             playAnimation={playAnimation}
             reverseAnimation={reverseAnimation}
             setIsWire={setIsWire}
+            typo={typo}
           />
           {model === 'building' && (
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
@@ -196,7 +199,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 onZoomComplete={handleZoomComplete}
               />
               )}
-          {/* {selectedObject && <HighlightedEdges object={selectedObject} />} */}
+          {selectedObject && model === 'apartment' && <HighlightedEdges object={selectedObject} />}
         </Canvas>
       </div>
 

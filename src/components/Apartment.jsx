@@ -28,8 +28,8 @@ const Apartment = ({ position, onClick }) => {
       onPointerOut={handlePointerOut}
     >
       {/* CONTROLA LA FORMA DEL CUBO */}
-      <boxGeometry args={[31.8, 2.4, 14.5]} />
-      <meshBasicMaterial color={hovered ? 'red' : 'transparent'} transparent opacity={hovered ? 0.5 : 0} />
+      <boxGeometry args={[31.6, 2.4, 15.5]} />
+      <meshBasicMaterial color={hovered ? 'red' : null} transparent opacity={hovered ? 0.5 : 0} />
     </mesh>
   )
 }

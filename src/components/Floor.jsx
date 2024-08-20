@@ -20,13 +20,14 @@ const Floor = ({ position, id, language, setApartmentNumber, setRoomQuantity, se
     setApartmentNumber(apartmentInfo)
     setRoomQuantity(apartmentType)
     setCurrentFloor(floorNumber)
-    if (floorNumber === 6) {
-      setNextFloor('t_b')
-    } else if (floorNumber === 7) {
-      setNextFloor('t_c')
-    } else {
-      setNextFloor('t_a')
-    }
+    // if (floorNumber === 6) {
+    //   setNextFloor('t_b')
+    // } else if (floorNumber === 7) {
+    //   setNextFloor('t_c')
+    // } else {
+    //   setNextFloor('t_a')
+    // }
+    setNextFloor('f_4')
     setIsFloorClicked(true)
   }
 
