@@ -5,25 +5,46 @@ const HighlightedEdges = ({ object }) => {
   useEffect(() => {
     const highlightedChildren = []
 
-    // Recorre todos los hijos del objeto
-    object.traverse((child) => {
-      if (child.geometry) { // Verifica si el hijo tiene geometría
-        const material = new THREE.MeshBasicMaterial({
-          color: object.id === 106 ? 0x6AFF5B : 0x011F4B,
-          transparent: true,
-          opacity: 0.3
-        })
+    if (object && object.parent) {
+      object.parent.children.forEach((child, index) => {
+        if (child.geometry) {
+          console.log(`Procesando hijo ${index} con UUID: ${child.uuid}`)
+          console.log(`visible: ${child.visible}, frustumCulled: ${child.frustumCulled}`)
 
-        const highlightedChild = new THREE.Mesh(child.geometry.clone(), material)
-        highlightedChildren.push(highlightedChild)
-        object.add(highlightedChild)
-      }
-    })
+          // Comentando temporalmente la verificación de visibilidad y frustum culling
+          /*
+          if (!child.visible || child.frustumCulled) {
+            console.warn(`Hijo ${index} está oculto o fuera del frustum:`, child);
+            return;
+          }
+          */
+
+          const material = new THREE.MeshBasicMaterial({
+            color: object.parent.id === 106 ? 0x6AFF5B : 0x011F4B,
+            transparent: true,
+            opacity: 0.3
+          })
+
+          const highlightedChild = new THREE.Mesh(child.geometry.clone(), material)
+          highlightedChild.position.copy(child.position)
+          highlightedChild.rotation.copy(child.rotation)
+          highlightedChild.scale.copy(child.scale)
+
+          // Asegurar que el hijo destacado esté visible y no sea culling
+          highlightedChild.visible = true
+          highlightedChild.frustumCulled = false
+
+          highlightedChildren.push(highlightedChild)
+          object.parent.add(highlightedChild)
+        }
+      })
+
+      console.log(`Se pintaron ${highlightedChildren.length} hijos.`)
+    }
 
     return () => {
-      // Remueve todos los objetos destacados añadidos
       highlightedChildren.forEach((highlightedChild) => {
-        object.remove(highlightedChild)
+        object.parent.remove(highlightedChild)
       })
     }
   }, [object])

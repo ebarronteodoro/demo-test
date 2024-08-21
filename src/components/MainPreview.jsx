@@ -74,6 +74,11 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   const switchToBuilding = async () => {
     await oscurecerPantalla()
     setTimeout(async () => {
+      setApartmentNumber('')
+      setRoomQuantity('')
+      setFloorNumber('')
+      setCurrentFloor(null)
+      setIsFloorClicked(false)
       setModel('building')
       setTransitioning(true)
       setView('top')
@@ -113,8 +118,8 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    console.log(object.parent)
-    setSelectedObject(object.parent) // Guardar el objeto seleccionado para resaltarlo
+    // console.log(object)
+    setSelectedObject(object) // Guardar el objeto seleccionado para resaltarlo
   }
 
   useEffect(() => {
@@ -233,12 +238,10 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
             Ver piso
           </button>
         )}
-        {model === 'apartment' && (
-          <>
-            <button type='button' className='switchTypoView' onClick={handlePlayAnimation} disabled={isWire === false}>
-              <EyeUpIcon width='45' height='45' />
-            </button>
-          </>
+        {model === 'typologie' && (
+          <button type='button' className='switchTypoView' onClick={handlePlayAnimation} disabled={isWire === false}>
+            <EyeUpIcon width='45' height='45' />
+          </button>
         )}
       </aside>
       <div id='overlay' className={isTransitioning ? 'active' : null} />
