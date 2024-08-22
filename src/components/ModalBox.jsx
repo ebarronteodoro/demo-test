@@ -15,19 +15,20 @@ const ModalBox = ({ handleLanguageChange, switchToMain, language }) => {
           <button type='button' className={language === 'en' ? 'selected' : null} onClick={() => handleLanguageChange('en')}>
             <UsaIcon id='usa-pattern' width='30' height='30' />
           </button>
-
         </div>
       </div>
       <div className='main-menu'>
         <img width={150} src='images/soil_logo.png' alt='Logo Soil' />
-        <button type='button' className='view-3d' onClick={switchToMain}>
-          <EyeIcon width='55' height='55' />
-          VISTA 3D
-        </button>
-        <button type='button' className='tour-360' disabled>
-          <View360Icon width='55' height='55' />
-          TOUR 360°
-        </button>
+        <div className='menu-options'>
+          <button type='button' className='view-3d' onClick={switchToMain}>
+            <EyeIcon width='55' height='55' />
+            VISTA 3D
+          </button>
+          <button type='button' className='tour-360' disabled>
+            <View360Icon width='55' height='55' />
+            TOUR 360°
+          </button>
+        </div>
       </div>
     </>
   )

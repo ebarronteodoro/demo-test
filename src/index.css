@@ -12,6 +12,10 @@ body {
   color-scheme: light dark;
 }
 
+button:disabled {
+  pointer-events: none;
+}
+
 .initial-screen {
   position: relative;
   width: 100dvw;
@@ -72,16 +76,24 @@ body {
   gap: 15%;
   padding: 7% 0;
 
-  & .view-3d,
-  .tour-360 {
+  & .menu-options {
     display: flex;
     flex-direction: column;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.3s ease;
+    gap: 30%;
+    height: 100%;
+    justify-content: center;
+
+    & .view-3d,
+    .tour-360 {
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
   }
 
   & button:active {
@@ -137,7 +149,6 @@ body {
   }
 }
 
-/* ESTILOS 3D RENDER EDIFICIO */
 .demo-loaded {
   font-size: 2rem;
   width: 100dvw;
@@ -164,7 +175,6 @@ body {
       border-radius: 4px;
     }
 
-    /*  */
     & .info-container {
       display: flex;
       flex-direction: column;
@@ -190,8 +200,6 @@ body {
 
 aside {
   position: fixed;
-  /* top: 0; */
-  /* right: 0; */
   margin: 0 5%;
   border-radius: 1rem;
   bottom: 1rem;
@@ -204,7 +212,8 @@ aside {
 
   & .switchViewButton,
   .viewFloorButton,
-  .switchTypoView {
+  .switchTypoView,
+  .viewTypoButton {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -229,10 +238,9 @@ aside {
   }
 
   & .viewFloorButton:disabled,
-  .switchTypoView:disabled {
-    pointer-events: none;
+  .switchTypoView:disabled,
+  .viewTypoButton:disabled {
     opacity: 0.5;
-    cursor: not-allowed;
   }
 }
 
@@ -247,19 +255,12 @@ aside {
 }
 
 .backPanoramaButton {
-  bottom: 0.4rem;
-  left: 1rem;
-  z-index: 9999;
   cursor: pointer;
   background: transparent;
   border: none;
   border-radius: 4px;
   padding: 2px;
-  /* transition: all 0.1s ease-out; */
   margin: 0;
-  /* &:active {
-    transform: scale(1.1);
-  } */
 }
 
 #overlay {
@@ -279,20 +280,118 @@ aside {
   opacity: 1;
 }
 
-@media only screen and (min-device-width: 480px) and (max-device-height: 640px) and (orientation: landscape) {
-  .modalbox {
-    width: 250px;
-    height: 250px;
-  }
+/* Responsive Movil Vertical */
+@media (min-device-width: 300px) and (max-device-width: 767px) and (max-device-height: 950px) {
+  @media (orientation: portrait) {
+    .main-menu {
+      width: 100%;
+      height: 45%;
+      padding: 10% 0;
+      gap: 10%;
 
-  .demo-loaded {
-    & header {
-      height: 70px;
+      & img {
+        width: 40%;
+      }
+
+      & .menu-options {
+        flex-direction: row;
+        height: auto;
+      }
     }
 
-    & aside {
-      & .switchViewButton {
-        margin-top: 150px;
+    .modalbox {
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .demo-loaded {
+      & header {
+        height: 70px;
+        width: 90%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        padding: 3%;
+      }
+    }
+  }
+}
+
+/* Responsive Movil Horizontal */
+@media (min-device-width: 300px) and (max-height: 500px) and (max-device-height: 950px) {
+  @media (orientation: landscape) {
+    .main-menu {
+      width: 35%;
+      gap: 5%;
+      padding: 5% 0;
+
+      & img {
+        width: 130px;
+      }
+
+      & .menu-options {
+        gap: 20%;
+
+        & .view-3d,
+        .tour-360 {
+          gap: 1px;
+          font-size: 11px;
+
+          & svg {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+
+    .demo-loaded {
+      & header {
+        height: 65px;
+        padding: 2%;
+
+        & .phoneIcon {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+
+    aside {
+      height: 3.5rem;
+
+      & .backPanoramaButton {
+        & svg {
+          width: 40px;
+          height: 40px;
+        }
+      }
+      & .switchViewButton,
+      .viewFloorButton,
+      .switchTypoView,
+      .viewTypoButton {
+        font-size: 12px;
+        & svg {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+
+    .demo-loaded {
+      & header {
+        & .info-container {
+          & > span {
+            font-size: 16px;
+          }
+
+          & div {
+            padding-left: 0;
+            & span {
+              font-size: 12px;
+            }
+          }
+        }
       }
     }
   }

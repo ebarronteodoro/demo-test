@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { useState, useEffect, useRef } from 'react'
+import { Canvas, useThree } from '@react-three/fiber'
 import { Sky } from '@react-three/drei'
 import Model from './Model'
 import DepaModel from './DepaModel'
@@ -11,9 +11,41 @@ import CircleArrowLeftIcon from '../icons/CircleArrowLeftIcon'
 import info from '../data/info.json'
 import PhoneIcon from '../icons/PhoneIcon'
 import EyeIcon from '../icons/EyeIcon'
+import DoorIcon from '../icons/DoorIcon'
 import { useModel } from '../hooks/ModelContext'
 import EyeUpIcon from '../icons/EyeUpIcon'
 import HighlightedEdges from './HighlightedEdges'
+import * as THREE from 'three'
+
+const CanvasWrapper = ({ setActiveMesh }) => {
+  const raycasterRef = useRef(new THREE.Raycaster())
+  const { scene, camera, gl } = useThree()
+
+  useEffect(() => {
+    const handleCanvasClick = (event) => {
+      const raycaster = raycasterRef.current
+      const mouse = new THREE.Vector2()
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+
+      raycaster.setFromCamera(mouse, camera)
+
+      const intersects = raycaster.intersectObjects(scene.children)
+
+      if (intersects.length === 1) {
+        setActiveMesh(null)
+      }
+    }
+
+    gl.domElement.addEventListener('pointerdown', handleCanvasClick)
+
+    return () => {
+      gl.domElement.removeEventListener('pointerdown', handleCanvasClick)
+    }
+  }, [camera, gl, scene, setActiveMesh])
+
+  return null
+}
 
 const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }) => {
   const modelPath = '/models/Edificio optimizado.glb'
@@ -24,14 +56,15 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     t_c: '/models/typologies/TIPO-C.glb',
     t_d: '/models/typologies/TIPO-D.glb',
     t_f: '/models/typologies/TIPO-F.glb',
-    f_4: '/models/floors/modelo_piso_4.1.glb',
+    f_4: '/models/floors/modelo_piso_4.glb',
     f_5: '/'
   }[typo]
-
+  const [activeMesh, setActiveMesh] = useState(null)
   const [view, setView] = useState('side')
   const [isWire, setIsWire] = useState(true)
   const [transitioning, setTransitioning] = useState(false)
   const [isFloorClicked, setIsFloorClicked] = useState(false)
+  const [isTypoClicked, setIsTypoClicked] = useState(false)
   const [floorNumber, setFloorNumber] = useState('')
   const [currentFloor, setCurrentFloor] = useState(null)
   const [nextFloor, setNextFloor] = useState(null)
@@ -39,18 +72,18 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   const [roomQuantity, setRoomQuantity] = useState('')
   const [selectedObject, setSelectedObject] = useState(null)
   const [isTransitioning, setIsTransitioning] = useState(false)
-
+  const [shouldHighlight, setShouldHighlight] = useState(true)
   const [playAnimation, setPlayAnimation] = useState(false)
   const [reverseAnimation, setReverseAnimation] = useState(false)
 
   const handlePlayAnimation = () => {
-    setReverseAnimation(false) // Desactiva la reversa si estaba activa
-    setPlayAnimation(true) // Activa la animación hacia adelante
+    setReverseAnimation(false)
+    setPlayAnimation(true)
   }
 
   const handleReverseAnimation = () => {
-    setPlayAnimation(false) // Desactiva la animación hacia adelante si estaba activa
-    setReverseAnimation(true) // Activa la animación en reversa
+    setPlayAnimation(false)
+    setReverseAnimation(true)
   }
 
   const oscurecerPantalla = () => {
@@ -78,13 +111,13 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
       setRoomQuantity('')
       setFloorNumber('')
       setCurrentFloor(null)
-      setIsFloorClicked(false)
       setModel('building')
       setTransitioning(true)
       setView('top')
     }, 1000)
     setTimeout(async () => {
       await aclararPantalla()
+      setIsFloorClicked(false)
     }, 1500)
   }
 
@@ -118,8 +151,8 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    // console.log(object)
-    setSelectedObject(object) // Guardar el objeto seleccionado para resaltarlo
+    console.log(object.parent.name)
+    setSelectedObject(object)
   }
 
   useEffect(() => {
@@ -131,15 +164,41 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     setView(view === 'top' ? 'side' : 'top')
   }
 
-  const viewApartment = () => {
+  useEffect(() => {
+    console.log(nextFloor)
+    console.log(isTypoClicked)
+    console.log(typo)
+  }, [typo])
+
+  const viewFloor = () => {
     oscurecerPantalla()
-    setTypo(nextFloor)
+    setNextFloor('f_4')
     setTimeout(async () => {
       setModel('apartment')
+      setShouldHighlight(true)
+      setTypo('f_4')
+    }, 1000)
+    setTimeout(async () => {
+      aclararPantalla()
+      setActiveMesh(null)
+    }, 1500)
+  }
+
+  const viewTypo = () => {
+    oscurecerPantalla()
+    setTimeout(async () => {
+      setSelectedObject(null)
+      setModel('typologie')
+      setShouldHighlight(false)
+      setTypo(nextFloor)
     }, 1000)
     setTimeout(async () => {
       aclararPantalla()
     }, 1500)
+  }
+
+  const handleMeshClick = (index) => {
+    setActiveMesh(index)
   }
 
   return (
@@ -159,7 +218,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
           <Sky sunPosition={[0, 5, -50]} turbidity={10} rayleigh={1} />
           <ambientLight intensity={0.1} />
           <hemisphereLight intensity={0.2} />
-          <Model path={modelPath} onModelClick={handleModelClick} model={model} />
+          <Model path={modelPath} model={model} />
           <DepaModel
             path={modeloPath}
             onModelClick={handleModelClick}
@@ -168,6 +227,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
             reverseAnimation={reverseAnimation}
             setIsWire={setIsWire}
             typo={typo}
+            setIsTypoClicked={setIsTypoClicked}
           />
           {model === 'building' && (
             <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -9, 0]}>
@@ -175,6 +235,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
               <meshStandardMaterial attach='material' color='#464646' metalness={0.1} roughness={0.01} />
             </mesh>
           )}
+          <CanvasWrapper setActiveMesh={setActiveMesh} />
           {model === 'building' &&
             floorPositions.map((position, index) => (
               <Floor
@@ -190,6 +251,8 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 setCurrentFloor={setCurrentFloor}
                 currentFloor={currentFloor}
                 setNextFloor={setNextFloor}
+                isActive={index === activeMesh}
+                onClick={() => handleMeshClick(index)}
               />
             ))}
           {model === 'building'
@@ -204,7 +267,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 onZoomComplete={handleZoomComplete}
               />
               )}
-          {selectedObject && model === 'apartment' && <HighlightedEdges object={selectedObject} />}
+          {selectedObject && model === 'apartment' && <HighlightedEdges object={selectedObject} setNextFloor={setNextFloor} setIsTypoClicked={setIsTypoClicked} shouldHighlight={shouldHighlight} />}
         </Canvas>
       </div>
 
@@ -216,10 +279,12 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
             if (model === 'building') {
               switchToPanorama()
             } else if (model === 'apartment') {
+              switchToBuilding()
+            } else if (model === 'typologie') {
               if (isWire === false) {
                 handleReverseAnimation()
               } else {
-                switchToBuilding()
+                viewFloor()
               }
             }
           }}
@@ -233,9 +298,15 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
           </button>
         )}
         {model === 'building' && (
-          <button type='button' className='viewFloorButton' onClick={viewApartment} disabled={isFloorClicked !== true}>
+          <button type='button' className='viewFloorButton' onClick={viewFloor} disabled={isFloorClicked !== true}>
             <EyeIcon width='45' height='45' />
             Ver piso
+          </button>
+        )}
+        {model === 'apartment' && (
+          <button type='button' className='viewTypoButton' onClick={viewTypo} disabled={isTypoClicked !== true}>
+            <DoorIcon width='45' height='45' />
+            Ver Tipología
           </button>
         )}
         {model === 'typologie' && (
