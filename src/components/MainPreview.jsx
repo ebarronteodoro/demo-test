@@ -151,7 +151,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    console.log(object.parent.name)
+    console.log(object)
     setSelectedObject(object)
   }
 
@@ -176,7 +176,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     setTimeout(async () => {
       setModel('apartment')
       setShouldHighlight(true)
-      setTypo('f_4')
+      setTypo(nextFloor)
     }, 1000)
     setTimeout(async () => {
       aclararPantalla()
@@ -194,6 +194,8 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     }, 1000)
     setTimeout(async () => {
       aclararPantalla()
+      setNextFloor('f_4')
+      isTypoClicked(false)
     }, 1500)
   }
 
