@@ -3,6 +3,11 @@ import * as THREE from 'three'
 
 const HighlightedEdges = ({ object, setNextFloor, setIsTypoClicked, model }) => {
   useEffect(() => {
+    // Solo ejecutar si el modelo es 'apartment'
+    if (model !== 'apartment') {
+      return
+    }
+
     const highlightedChildren = []
 
     const depaActions = {
@@ -45,20 +50,8 @@ const HighlightedEdges = ({ object, setNextFloor, setIsTypoClicked, model }) => 
     const findParentWithNameRecursively = (obj) => {
       if (!obj) return null
 
-      // Print the ancestor with name "Scene" if applicable
-      if (model === 'apartment' || model === 'typologie') {
-        if (obj.name === 'Scene') {
-          console.log(`Ancestro con nombre "Scene" encontrado: ${obj.name}`)
-          return obj
-        }
-      }
-
-      // Check if the current object is a highlightable name
       if (highlightableNames.includes(obj.name)) {
-        console.log(`Padre encontrado con nombre: ${obj.name}`)
-        if (depaActions[obj.name]) {
-          depaActions[obj.name]()
-        }
+        depaActions[obj.name]?.()
         return obj
       }
 
@@ -85,17 +78,6 @@ const HighlightedEdges = ({ object, setNextFloor, setIsTypoClicked, model }) => 
     }
 
     if (object) {
-      // Print Scene ancestor if model is 'apartment' or 'typologie'
-      if (model === 'apartment' || model === 'typologie') {
-        const foundScene = findParentWithNameRecursively(object.parent)
-        if (foundScene) {
-          console.log(`Se encontró y se procesó el ancestro: ${foundScene.name}`)
-        } else {
-          console.log('No se encontró ningún ancestro con un nombre coincidente.')
-        }
-      }
-
-      // Resaltar los hijos
       const highlightableMaterial = new THREE.MeshBasicMaterial({
         color: 0x6AFF5B,
         transparent: true,
@@ -105,10 +87,10 @@ const HighlightedEdges = ({ object, setNextFloor, setIsTypoClicked, model }) => 
       const foundParent = findParentWithNameRecursively(object.parent)
       if (foundParent) {
         highlightDescendantsRecursively(foundParent, highlightableMaterial)
-        console.log(`Se pintaron ${highlightedChildren.length} descendientes.`)
       }
     }
 
+    // Cleanup function to remove highlighted children
     return () => {
       highlightedChildren.forEach((highlightedChild) => {
         if (highlightedChild.parent) {

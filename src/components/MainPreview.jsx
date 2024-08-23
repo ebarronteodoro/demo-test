@@ -151,7 +151,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const handleModelClick = (object) => {
-    console.log(object)
+    // console.log(object)
     setSelectedObject(object)
   }
 
@@ -164,21 +164,17 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     setView(view === 'top' ? 'side' : 'top')
   }
 
-  useEffect(() => {
-    console.log(nextFloor)
-    console.log(isTypoClicked)
-    console.log(typo)
-  }, [typo])
-
   const viewFloor = () => {
-    oscurecerPantalla()
     setNextFloor('f_4')
+    setIsTypoClicked(false)
+    oscurecerPantalla()
     setTimeout(async () => {
-      setModel('apartment')
       setShouldHighlight(true)
       setTypo(nextFloor)
+      setModel('apartment')
     }, 1000)
     setTimeout(async () => {
+      setIsTypoClicked(false)
       aclararPantalla()
       setActiveMesh(null)
     }, 1500)
@@ -194,8 +190,8 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     }, 1000)
     setTimeout(async () => {
       aclararPantalla()
+      setIsTypoClicked(false)
       setNextFloor('f_4')
-      isTypoClicked(false)
     }, 1500)
   }
 
@@ -269,7 +265,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
                 onZoomComplete={handleZoomComplete}
               />
               )}
-          {selectedObject && model === 'apartment' && <HighlightedEdges object={selectedObject} setNextFloor={setNextFloor} setIsTypoClicked={setIsTypoClicked} shouldHighlight={shouldHighlight} />}
+          {selectedObject && model === 'apartment' && <HighlightedEdges object={selectedObject} setNextFloor={setNextFloor} setIsTypoClicked={setIsTypoClicked} shouldHighlight={shouldHighlight} model={model} />}
         </Canvas>
       </div>
 
