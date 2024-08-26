@@ -6,7 +6,7 @@ import DepaModel from './DepaModel'
 import Floor from './Floor'
 import CameraControls from './CameraControls'
 import ApartmentCameraController from './ApartmentCameraController'
-import RotateDotIcon from '../icons/RotateDotIcon'
+// import RotateDotIcon from '../icons/RotateDotIcon'
 import CircleArrowLeftIcon from '../icons/CircleArrowLeftIcon'
 import info from '../data/info.json'
 import PhoneIcon from '../icons/PhoneIcon'
@@ -55,6 +55,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
     t_b: '/models/typologies/TIPO-B.glb',
     t_c: '/models/typologies/TIPO-C.glb',
     t_d: '/models/typologies/TIPO-D.glb',
+    t_e: '/models/typologies/TIPO-E.glb',
     t_f: '/models/typologies/TIPO-F.glb',
     f_4: '/models/floors/modelo_piso_4.glb',
     f_5: '/'
@@ -105,6 +106,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }
 
   const switchToBuilding = async () => {
+    console.log('switchToBuilding')
     await oscurecerPantalla()
     setTimeout(async () => {
       setApartmentNumber('')
@@ -160,8 +162,11 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
   }, [])
 
   const switchView = () => {
+    console.log('vista antes de presionar: ' + view)
+
     setTransitioning(true)
     setView(view === 'top' ? 'side' : 'top')
+    console.log('vista después de presionar: ' + view)
   }
 
   const viewFloor = () => {
@@ -259,9 +264,7 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
               )
             : (
               <ApartmentCameraController
-                view={view}
-                transitioning={transitioning}
-                onTransitionEnd={handleTransitionEnd}
+                model={model}
                 onZoomComplete={handleZoomComplete}
               />
               )}
@@ -289,22 +292,23 @@ const MainPreview = ({ language, mainHidden, switchToPanorama, model, setModel }
         >
           <CircleArrowLeftIcon width='45' height='45' />
         </button>
-        {model === 'building' && (
+        {/* LÍNEA COMENTADA @@CAMBIO */}
+        {/* {model === 'building' && (
           <button type='button' className='switchViewButton' onClick={switchView}>
             <RotateDotIcon width='45' height='45' className={view === 'side' ? 'active' : ''} />
             {info[language].switchViewText}
           </button>
-        )}
+        )} */}
         {model === 'building' && (
           <button type='button' className='viewFloorButton' onClick={viewFloor} disabled={isFloorClicked !== true}>
             <EyeIcon width='45' height='45' />
-            Ver piso
+            {info[language].viewFloorText}
           </button>
         )}
         {model === 'apartment' && (
           <button type='button' className='viewTypoButton' onClick={viewTypo} disabled={isTypoClicked !== true}>
             <DoorIcon width='45' height='45' />
-            Ver Tipología
+            {info[language].viewTypoText}
           </button>
         )}
         {model === 'typologie' && (

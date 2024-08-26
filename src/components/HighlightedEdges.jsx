@@ -3,7 +3,6 @@ import * as THREE from 'three'
 
 const HighlightedEdges = ({ object, setNextFloor, setIsTypoClicked, model }) => {
   useEffect(() => {
-    // Solo ejecutar si el modelo es 'apartment'
     if (model !== 'apartment') {
       return
     }

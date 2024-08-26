@@ -1,6 +1,8 @@
 {
   "es": {
     "switchViewText": "Vista Lateral",
+    "viewFloorText": "Ver Piso",
+    "viewTypoText": "Ver Tipología",
     "building": {
       "floor": {
         "1": {
@@ -728,6 +730,8 @@
   },
   "en": {
     "switchViewText": "Side View",
+    "viewFloorText": "View Floor",
+    "viewTypoText": "View Typologie",
     "building": {
       "floor": {
         "1": {

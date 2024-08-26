@@ -4,7 +4,7 @@ import { OrbitControls } from '@react-three/drei'
 import TWEEN from '@tweenjs/tween.js'
 import * as THREE from 'three'
 
-const ApartmentCameraController = ({ onZoomComplete }) => {
+const ApartmentCameraController = ({ onZoomComplete, model }) => {
   const { camera, gl } = useThree()
   const [controlsEnabled, setControlsEnabled] = useState(false)
 
@@ -28,7 +28,7 @@ const ApartmentCameraController = ({ onZoomComplete }) => {
     return () => {
       tween.stop()
     }
-  }, [])
+  }, [model])
 
   useFrame(() => {
     TWEEN.update()

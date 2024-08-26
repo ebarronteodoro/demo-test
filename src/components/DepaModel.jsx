@@ -11,9 +11,8 @@ const DepaModel = ({ path, onModelClick, model, typo, playAnimation, reverseAnim
   const { gl, camera } = useThree()
   const raycaster = useRef(new THREE.Raycaster()).current
   const mixer = useRef(null)
-  const actions = useRef([]) // Para guardar las acciones de animación
+  const actions = useRef([])
 
-  // Función para buscar el ancestro con nombre "Scene"
   const findSceneAncestor = (obj) => {
     if (!obj) return null
 
@@ -22,6 +21,15 @@ const DepaModel = ({ path, onModelClick, model, typo, playAnimation, reverseAnim
     }
 
     return findSceneAncestor(obj.parent)
+  }
+
+  // Función para cambiar entre wireframe y sólido
+  const toggleWireframe = (isWire) => {
+    scene.traverse((child) => {
+      if (child.isMesh) {
+        child.material.wireframe = isWire
+      }
+    })
   }
 
   // Manejo del clic en el modelo
@@ -50,6 +58,10 @@ const DepaModel = ({ path, onModelClick, model, typo, playAnimation, reverseAnim
   }, [gl, camera, scene])
 
   useEffect(() => {
+    if (meshRef.current) {
+      meshRef.current.position.set(0, 0, 0)
+    }
+
     if (model === 'apartment' || model === 'typologie') {
       const sceneAncestor = findSceneAncestor(scene)
 
@@ -64,19 +76,31 @@ const DepaModel = ({ path, onModelClick, model, typo, playAnimation, reverseAnim
       mixer.current = new THREE.AnimationMixer(scene)
       actions.current = animations.map((clip) => mixer.current.clipAction(clip))
     }
-  }, [animations, scene])
+
+    // Al cargar un nuevo modelo, solo cambia a wireframe sin reproducir la animación.
+    if (mixer.current && model === 'typologie') {
+      actions.current.forEach((action) => {
+        action.stop() // Detenemos cualquier animación para evitar el reverse automático.
+        toggleWireframe(true) // Activamos el wireframe.
+      })
+    }
+  }, [animations, scene, model])
 
   useEffect(() => {
-    if (mixer.current) {
+    if (mixer.current && model === 'typologie') {
       actions.current.forEach((action) => {
         if (playAnimation) {
-          action.reset().play()
+          action.reset()
           action.timeScale = 1
           action.clampWhenFinished = true
           action.loop = THREE.LoopOnce
           setIsWire(false)
+          toggleWireframe(false)
+          action.play()
         } else if (reverseAnimation) {
           action.reset()
+          setIsWire(true)
+          toggleWireframe(true)
           action.timeScale = -1
           action.setEffectiveTimeScale(-1)
           action.setLoop(THREE.LoopOnce)
@@ -84,13 +108,12 @@ const DepaModel = ({ path, onModelClick, model, typo, playAnimation, reverseAnim
 
           action.time = action.getClip().duration
           action.play()
-          setIsWire(true)
         } else {
           action.stop()
         }
       })
     }
-  }, [playAnimation, reverseAnimation, animations, setIsWire])
+  }, [playAnimation, reverseAnimation])
 
   useEffect(() => {
     const update = () => {

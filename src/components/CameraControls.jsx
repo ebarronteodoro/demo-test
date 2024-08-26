@@ -52,8 +52,11 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
 
   useEffect(() => {
     if (view === 'top') {
-      targetPosition.current.set(-0.9, sumDimensions / 29, 0)
-      setControlsType(MapControls)
+      // COMENTÉ ESTA LÍNEA Y COPIÉ LA DE ABAJO PARA QUE FUNCIONE @@CAMBIO
+      // targetPosition.current.set(-0.9, sumDimensions / 29, 0)
+      // setControlsType(MapControls)
+      targetPosition.current.set(-60, sumDimensions / 30, sumDimensions / 32)
+      setControlsType(OrbitControls)
     } else {
       targetPosition.current.set(-60, sumDimensions / 30, sumDimensions / 32)
       setControlsType(OrbitControls)
@@ -91,7 +94,7 @@ const CameraControls = ({ view, transitioning, onTransitionEnd }) => {
 
   if (controlsType === OrbitControls) {
     controlProps.minPolarAngle = Math.PI / 4
-    controlProps.maxPolarAngle = Math.PI / 2
+    controlProps.maxPolarAngle = Math.PI / 2.5
   }
 
   return <Controls {...controlProps} />
